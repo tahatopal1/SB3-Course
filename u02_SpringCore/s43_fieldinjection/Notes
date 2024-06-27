@@ -1,0 +1,128 @@
+Sure, let's break down the example and demonstrate how field injection can make unit testing harder, compared to using constructor injection.
+
+### Example of Field Injection
+
+#### DemoController with Field Injection
+
+@RestController
+public class DemoController {
+
+    @Autowired
+    private Coach myCoach;
+
+    @GetMapping("/dailyworkout")
+    public String getDailyWorkout() {
+        return myCoach.getDailyWorkout();
+    }
+}
+
+#### Unit Test for Field Injection
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class DemoControllerTest {
+
+    @Autowired
+    private DemoController demoController;
+
+    @MockBean
+    private Coach myCoach;
+
+    @Test
+    public void testGetDailyWorkout() {
+        Mockito.when(myCoach.getDailyWorkout()).thenReturn("Run a hard 5k!");
+
+        String workout = demoController.getDailyWorkout();
+
+        assertEquals("Run a hard 5k!", workout);
+    }
+}
+
+### Issues with Field Injection in Testing
+
+1. **Tight Coupling**: The `DemoController` is tightly coupled to the `Coach` dependency through field injection,
+    making it less clear what dependencies it needs.
+2. **Hidden Dependencies**: It's not immediately apparent what dependencies `DemoController` requires, making it harder to understand and maintain.
+3. **Mocking Complications**: Field injection can complicate the injection of mock objects in tests, as seen with the need for `@MockBean`.
+
+### Example of Constructor Injection
+
+#### DemoController with Constructor Injection
+
+@RestController
+public class DemoController {
+
+    private final Coach myCoach;
+
+    @Autowired
+    public DemoController(Coach myCoach) {
+        this.myCoach = myCoach;
+    }
+
+    @GetMapping("/dailyworkout")
+    public String getDailyWorkout() {
+        return myCoach.getDailyWorkout();
+    }
+}
+
+#### Unit Test for Constructor Injection
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class DemoControllerTest {
+
+    @Autowired
+    private DemoController demoController;
+
+    @MockBean
+    private Coach myCoach;
+
+    @Test
+    public void testGetDailyWorkout() {
+        Mockito.when(myCoach.getDailyWorkout()).thenReturn("Run a hard 5k!");
+
+        String workout = demoController.getDailyWorkout();
+
+        assertEquals("Run a hard 5k!", workout);
+    }
+}
+
+### Advantages of Constructor Injection
+
+1. **Explicit Dependencies**: Constructor injection makes dependencies explicit and clear.
+2. **Easier Testing**: Constructor injection allows you to pass mock objects directly into the constructor, making unit tests easier to write and maintain.
+3. **No Reflection**: Constructor injection avoids the use of reflection, making the code more straightforward and less error-prone.
+
+### Unit Test Without Spring Context
+
+Another advantage of constructor injection is the ability to write unit tests without needing the full Spring context,
+leading to faster and more isolated tests.
+
+#### Unit Test for Constructor Injection Without Spring Context
+
+public class DemoControllerTest {
+
+    private DemoController demoController;
+    private Coach myCoach;
+
+    @Before
+    public void setUp() {
+        myCoach = Mockito.mock(Coach.class);
+        demoController = new DemoController(myCoach);
+    }
+
+    @Test
+    public void testGetDailyWorkout() {
+        Mockito.when(myCoach.getDailyWorkout()).thenReturn("Run a hard 5k!");
+
+        String workout = demoController.getDailyWorkout();
+
+        assertEquals("Run a hard 5k!", workout);
+    }
+}
+
+### Summary
+
+Field injection can make unit testing harder due to tight coupling, hidden dependencies, and complications with mocking.
+Constructor injection addresses these issues by making dependencies explicit, improving testability, and avoiding reflection.
+Using constructor injection is recommended for writing cleaner, more maintainable, and easily testable code.

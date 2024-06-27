@@ -1,0 +1,26 @@
+### Inversion of Control (IoC)
+
+**Definition:**
+- Inversion of Control is an approach where the construction and management of objects are outsourced to another entity rather than being done manually.
+
+### Coding Scenario:
+- **Example Application:**
+  - A `CricketCoach` object is used to call a method to get a daily workout.
+  - The application should be configurable to easily switch coaches for different sports (e.g., baseball, hockey, tennis, gymnastics).
+
+### Ideal Solution:
+- **Object Factory Concept:**
+  - The application interacts with an object factory to obtain a coach object.
+  - The factory creates and provides the appropriate coach object based on a configuration.
+
+### Spring Container:
+- The Spring container acts as an object factory.
+  - **Functionality:**
+    1. Creates and manages objects using IoC.
+    2. Injects object dependencies using dependency injection.
+  - **Configuration:**
+    - The Spring container can be configured using:
+      1. XML configuration (legacy, not covered in the course)
+      2. Java annotations
+      3. Java source code
+    - The focus will be on modern solutions using Java annotations and Java source code, with plenty of examples provided.

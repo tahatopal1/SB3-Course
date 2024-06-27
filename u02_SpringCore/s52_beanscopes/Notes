@@ -1,0 +1,44 @@
+### Summary of Bean Scopes in Spring
+
+#### Context:
+The video explains the concept of bean scopes in Spring, focusing on the lifecycle, instance creation, and sharing of beans.
+It highlights the default singleton scope and introduces other available scopes.
+
+#### Key Points:
+
+1. **Bean Scope Definition**:
+   - Scope refers to the lifecycle of a bean: how long it lives, how many instances are created, and how the bean is shared.
+
+2. **Default Scope: Singleton**:
+   - **Definition**: A singleton bean means Spring creates only one instance of the bean, which is cached in memory.
+   - **Usage**: All dependency injections reference the same instance of the bean.
+   - **Example**: In a `DemoController`, injecting `CricketCoach` twice using `@Qualifier` will reference the same instance.
+
+3. **Specifying Bean Scope Explicitly**:
+   - **Singleton Scope**: Use `@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)` to explicitly set a bean as a singleton.
+   - **Other Scopes**:
+     - **Prototype Scope**: Creates a new bean instance for each request or injection point. Use `@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)`.
+     - **Request Scope**: Scoped to an HTTP web request, used only for web applications.
+     - **Session Scope**: Scoped to an HTTP web session, used only for web applications.
+     - **Application Scope**: Scoped to a web application's `ServletContext`, used only for web applications.
+     - **WebSocket Scope**: Scoped to a WebSocket.
+
+4. **Prototype Scope Example**:
+   - **Behavior**: A new instance of the bean is created for each injection.
+   - **Implementation**: Use `@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)` on the class.
+   - **Example**: Injecting `CricketCoach` twice in `DemoController` results in two different instances.
+
+5. **Checking Bean Scope**:
+   - **Method**: Implement a method to compare bean instances.
+   - **Example**: In `DemoController`, a `@GetMapping` for `/check` can compare two beans and return `true` if they are the same (singleton)
+or `false` if they are different (prototype).
+
+6. **Practical Implications**:
+   - **Singleton Scope**: Efficient memory usage, single instance shared across injections.
+   - **Prototype Scope**: Each injection gets a new instance, useful for stateful beans but increases memory usage.
+
+#### Conclusion:
+Understanding bean scopes in Spring is crucial for managing the lifecycle and memory usage of beans effectively.
+The default singleton scope provides a shared, single instance across the application, while the prototype scope allows
+for creating new instances per injection, offering flexibility for stateful beans. Explicitly specifying scopes ensures
+clarity and control over bean behavior, especially in web applications with request, session, application, and WebSocket scopes.

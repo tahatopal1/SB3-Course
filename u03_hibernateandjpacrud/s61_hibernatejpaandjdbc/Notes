@@ -1,0 +1,9 @@
+How does Hibernate/JPA relate to JDBC?
+
+    ->  Hibernate/JPA actually uses JDBC for all database communications.
+
+    ->  Hibernate/JPA is just another layer of abstraction on top of JDBC.
+
+    ->  When the application uses the Hibernate/JPA framework,your app will actually store and retrieve the objects using the JPA API.
+
+    ->  Hibernate/JPA does a lot of  low-level work for you, but in the background, it all goes through the standard JDBC API.

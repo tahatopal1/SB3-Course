@@ -1,0 +1,136 @@
+Sure, let's create an example based on the instructor's explanation. We'll follow the steps to configure a new `SwimCoach`
+bean using Java code and then inject it into a controller.
+
+### Step 1: Create the Configuration Class
+
+First, we'll create a configuration class and annotate it with `@Configuration`.
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SportConfig {
+
+    @Bean
+    public Coach swimCoach() {
+        return new SwimCoach();
+    }
+}
+
+### Step 2: Define the Coach Interface and SwimCoach Class
+
+Next, we'll define the `Coach` interface and the `SwimCoach` class implementing this interface.
+
+public interface Coach {
+    String getDailyWorkout();
+}
+
+public class SwimCoach implements Coach {
+
+    @Override
+    public String getDailyWorkout() {
+        return "Swim 1000 meters as a warm up.";
+    }
+}
+
+### Step 3: Inject the Bean into the Controller
+
+Now, we'll create a controller and inject the `SwimCoach` bean into it using the `@Autowired` and `@Qualifier` annotations.
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class DemoController {
+
+    private final Coach swimCoach;
+
+    @Autowired
+    public DemoController(@Qualifier("swimCoach") Coach swimCoach) {
+        this.swimCoach = swimCoach;
+    }
+
+    @GetMapping("/workout")
+    @ResponseBody
+    public String getDailyWorkout() {
+        return swimCoach.getDailyWorkout();
+    }
+}
+
+### Step 4: Create the Main Application Class
+
+Finally, we'll create the main application class to run our Spring Boot application.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringBootDemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootDemoApplication.class, args);
+    }
+}
+
+### Running the Application
+
+When you run the application, you can access the `/workout` endpoint to see the output from the `SwimCoach` bean.
+
+### Use Case for `@Bean` Annotation
+
+The instructor also mentioned a real-world use case for the `@Bean` annotation. Here's an example of configuring an AWS S3 client as a Spring bean.
+
+#### Configuration Class for AWS S3 Client
+
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class DocumentConfig {
+
+    @Bean
+    public AmazonS3 s3Client() {
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials("access_key_id", "secret_access_key");
+        return AmazonS3ClientBuilder.standard()
+                .withRegion(Regions.US_EAST_1)
+                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+                .build();
+    }
+}
+
+#### Injecting the S3 Client into a Service
+
+import com.amazonaws.services.s3.AmazonS3;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class DocumentService {
+
+    private final AmazonS3 s3Client;
+
+    @Autowired
+    public DocumentService(AmazonS3 s3Client) {
+        this.s3Client = s3Client;
+    }
+
+    public void uploadDocument(String bucketName, String key, File file) {
+        s3Client.putObject(bucketName, key, file);
+    }
+}
+
+### Summary
+
+- We created a `SwimCoach` bean using Java configuration.
+- We injected the `SwimCoach` bean into a controller.
+- We saw a real-world example of configuring an AWS S3 client as a Spring bean using the `@Bean` annotation.
+
+This setup demonstrates how to configure and manage beans using Java code in a Spring Boot application.

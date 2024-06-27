@@ -1,0 +1,47 @@
+### Spring Boot Project Structure Summary
+
+#### Application Properties
+
+- **Default Properties File:**
+  - `application.properties` located in `src/main/resources`.
+  - Created by Spring Initializr, initially empty.
+
+- **Usage:**
+  - Add Spring Boot properties, e.g., `server.port=8585` to change the server port.
+  - Custom properties can be added, e.g., `coach.name=Mickey Mouse`.
+
+- **Reading Properties:**
+  - Use `@Value` annotation to inject properties into Spring components.
+  - Example:
+
+    @Value("${coach.name}")
+    private String coachName;
+
+    @Value("${team.name}")
+    private String teamName;
+
+#### Static Content
+
+- **Default Location:**
+  - Spring Boot loads static resources from the `/static` directory.
+  - Examples include HTML files, CSS, JavaScript, images, and PDFs.
+
+- **Note on JAR Packaging:**
+  - Do not use `src/main/webapp` if the application is packaged as a JAR; it works only with WAR packaging.
+
+#### Templates
+
+- **Supported Template Engines:**
+  - FreeMarker, Thymeleaf, Mustache.
+  - Templates are loaded from the `/templates` directory by default.
+
+- **Thymeleaf:**
+  - A popular template engine that will be used later in the course.
+  - For other engines, search online for examples.
+
+#### Unit Tests
+
+- **Initial Test File:**
+  - `Mycoolapplicationtest.java` created by Spring Initializr.
+  - Contains basic setup, no real unit test code.
+  - Add custom unit tests to this file as needed.

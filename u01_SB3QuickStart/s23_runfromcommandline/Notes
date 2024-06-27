@@ -1,0 +1,85 @@
+### Running Spring Boot from the Command Line Summary
+
+#### Introduction
+
+- During development, most work is done in an IDE.
+- However, you might want to run your Spring Boot applications outside the IDE, from the command line.
+
+#### Benefits of Running from Command Line
+
+- No need for the IDE to be open.
+- The Spring Boot application includes an embedded server, so no separate server installation is required.
+- The application is self-contained within the JAR file.
+
+#### Two Options for Running from the Command Line
+
+1. **Using `java -jar`**
+2. **Using Spring Boot Maven Plugin**
+
+### Option 1: Using `java -jar`
+
+1. **Packaging the Application:**
+   - Ensure your application is packaged into a JAR file.
+   - Example JAR file: `mycoolapp.jar`.
+
+2. **Running the Application:**
+   - Use the command: `java -jar mycoolapp.jar`.
+   - This starts the application and the embedded server.
+   - No need for an IDE or a separate server installation.
+
+**Command:**
+
+java -jar mycoolapp.jar
+
+### Option 2: Using Spring Boot Maven Plugin
+
+1. **Using `mvnw` Commands:**
+   - `mvnw` (Maven Wrapper) commands allow running a Maven project without Maven installed.
+   - The correct version of Maven will be downloaded automatically if not present.
+
+2. **Files Provided by Maven Wrapper:**
+   - `mvnw.cmd` for Windows.
+   - `mvnw.sh` for Linux/Mac.
+
+3. **If Maven is Already Installed:**
+   - Use regular Maven commands: `mvn clean compile test`.
+
+**Spring Boot Maven Plugin Configuration in `pom.xml`:**
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+
+**Commands:**
+
+- **Packaging the Application:**
+
+  ./mvnw package   # If using Maven Wrapper
+  mvn package      # If Maven is installed
+
+- **Running the Application:**
+
+  ./mvnw spring-boot:run   # If using Maven Wrapper
+  mvn spring-boot:run      # If Maven is installed
+
+### Development Process Recap
+
+1. **Exit the IDE:**
+   - Close your IDE to run the application standalone.
+
+2. **Package the Application:**
+   - Use `mvnw package` or `mvn package`.
+
+3. **Run with `java -jar`:**
+   - Execute `java -jar mycoolapp.jar`.
+
+4. **Run with Spring Boot Maven Plugin:**
+   - Use `./mvnw spring-boot:run` or `mvn spring-boot:run`.
+
+By following these steps, you can efficiently run your Spring Boot applications from the command line,
+leveraging the embedded server and making the development process more flexible.

@@ -1,0 +1,68 @@
+### Running a Spring Boot Application from the Command Line on macOS and Linux
+
+#### Prerequisites
+- Ensure Java is installed and configured properly.
+- Have your Spring Boot application files ready in an accessible directory.
+
+#### Step-by-Step Guide
+
+1. **Open Terminal:**
+   - Open a terminal window on your macOS or Linux system.
+
+2. **Navigate to Your Project Directory:**
+
+   - Use the `cd` command to navigate to your project directory.
+
+   - Example:
+     cd ~/dev-spring-boot/05-command-line-demo
+
+3. **Package Your Application:**
+
+   - Run the following command to package your Spring Boot application:
+     ./mvnw package
+
+   - This command uses Maven to package your application and creates a JAR file in the `target` directory.
+   - Note: If Maven is already installed, you can use `mvn package` instead.
+
+4. **Navigate to the Target Directory:**
+
+   - Change to the `target` directory where the JAR file is located:
+     cd target
+
+5. **Run the Application with `java -jar`:**
+   - Execute the JAR file using the following command:
+
+     java -jar mycoolapp-0.0.1-SNAPSHOT.jar
+
+   - This starts your Spring Boot application, including the embedded server.
+
+6. **Verify Application is Running:**
+
+   - Open a web browser and navigate to `http://localhost:8080`.
+
+   - Check different endpoints to ensure the application is functioning correctly:
+     - `http://localhost:8080`
+     - `http://localhost:8080/workout`
+     - `http://localhost:8080/fortune`
+
+7. **Stop the Application:**
+   - In the terminal window, press `Ctrl + C` to stop the application.
+
+8. **Run the Application Using Spring Boot Maven Plugin:**
+
+   - Move up one directory level:
+     cd ..
+
+   - Run the application using the Spring Boot Maven plugin:
+     ./mvnw spring-boot:run
+
+   - Note: If Maven is already installed, you can use `mvn spring-boot:run`.
+
+9. **Verify and Stop the Application Again:**
+   - Check the application in the browser as before to ensure it's running.
+   - Stop the application with `Ctrl + C`.
+
+### Summary
+By following these steps, you can successfully run your Spring Boot application from the command line
+on macOS or Linux, without needing to keep your IDE open. This method leverages the embedded server
+included in the Spring Boot application JAR file, allowing for a streamlined and efficient workflow.

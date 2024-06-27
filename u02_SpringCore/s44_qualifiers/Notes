@@ -1,0 +1,30 @@
+### Annotation, Autowiring, and Qualifiers
+
+#### Autowiring in Spring
+- **Autowiring**: Automatically injects a coach implementation by scanning for components.
+- **Problem**: If multiple implementations exist (e.g., CricketCoach, BaseballCoach, TrackCoach, TennisCoach), Spring faces ambiguity.
+- **Error**: Spring throws an error indicating it found multiple beans and cannot decide which one to inject.
+
+#### Qualifier Annotation
+- **Solution**: Use `@Qualifier` to specify which implementation to inject.
+- **Example**:
+  - For constructor injection:
+
+    @Autowired
+    public DemoController(@Qualifier("cricketCoach") Coach coach) {
+        this.coach = coach;
+    }
+
+  - For setter injection:
+
+    @Autowired
+    @Qualifier("cricketCoach")
+    public void setCoach(Coach coach) {
+        this.coach = coach;
+    }
+
+  - The `@Qualifier` specifies the bean ID, which is the class name with the first character in lowercase (e.g., `cricketCoach`).
+
+#### Benefits
+- Resolves ambiguity by specifying which coach implementation to use.
+- Ensures the application starts correctly without confusion over multiple bean definitions.

@@ -1,0 +1,95 @@
+Here's a summary of the video on Spring Boot properties:
+
+### Overview:
+- **Spring Boot Configuration**: Spring Boot can be configured using the `application.properties` file.
+- **Properties**: You can set various properties such as server port, context path, actuator endpoints, security settings, etc.
+- **Number of Properties**: Spring Boot has over 1000 properties, grouped into logical categories.
+
+### Common Property Categories:
+1. **Core**
+2. **Web**
+3. **Security**
+4. **Data**
+5. **Actuator**
+6. **Integration**
+7. **DevTools**
+8. **Testing**
+
+### Key Properties and Examples:
+
+#### Core Properties:
+- **Logging Levels**: Configure different logging levels for packages.
+
+  - Example:
+    logging.level.org.springframework=DEBUG
+    logging.level.org.hibernate=TRACE
+    logging.level.com.luv2code=INFO
+
+- **Log Output File**: Direct log output to a specific file.
+  - Example:
+
+    logging.file.name=my-crazy-stuff.log
+
+#### Web Properties:
+- **Server Port**: Change the default server port.
+  - Example:
+
+    server.port=7070
+
+- **Context Path**: Change the context path of the application.
+  - Example:
+
+    server.servlet.context-path=/my-silly-app
+
+- **HTTP Session Timeout**: Set the session timeout.
+  - Example:
+
+    server.servlet.session.timeout=15m
+
+#### Actuator Properties:
+- **Include Endpoints**: Specify which endpoints to include.
+  - Example:
+
+    management.endpoints.web.exposure.include=*
+
+- **Exclude Endpoints**: Specify which endpoints to exclude.
+  - Example:
+
+    management.endpoints.web.exposure.exclude=beans,mappings
+
+- **Base Path for Endpoints**: Set the base path for actuator endpoints.
+  - Example:
+
+    management.endpoints.web.base-path=/actuator
+
+#### Security Properties:
+- **Default Username**: Set a custom default username.
+  - Example:
+
+    spring.security.user.name=admin
+
+- **Default Password**: Set a custom default password.
+  - Example:
+
+    spring.security.user.password=topsecret
+
+#### Data Properties:
+- **JDBC URL**: Configure the JDBC URL for the datasource.
+  - Example:
+
+    spring.datasource.url=jdbc:mysql://localhost/ecommerce
+
+- **Datasource Username and Password**: Set the username and password for the datasource.
+  - Example:
+
+    spring.datasource.username=scott
+    spring.datasource.password=tiger
+
+### Additional Resources:
+- **List of Common Properties**: For more details, visit [luv2code.com/spring-boot-props](http://luv2code.com/spring-boot-props).
+- **Spring Boot Logging**: For logging configurations, visit [luv2code.com/spring-boot-logging](http://luv2code.com/spring-boot-logging).
+
+### Next Steps:
+- The video will continue with a hands-on section to modify the Spring Boot server port and application context path, showing practical configuration changes.
+
+This summary highlights the main points and provides examples of how to configure Spring Boot properties as discussed in the video.

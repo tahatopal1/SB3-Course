@@ -1,0 +1,37 @@
+### Maven Crash Course Summary
+
+#### Relationship between Spring Boot and Maven
+- Spring Initializer (start.spring.io) can generate a Maven project for Spring Boot.
+
+#### Basics of Maven
+- **What is Maven?**
+  - A project management tool primarily used for build management and dependencies in Java projects.
+
+#### Problems Maven Solves
+- **Manual Process without Maven:**
+  - Developers manually download JAR files (Spring, Hibernate, Commons Logging, etc.) from project websites and add them to the build path.
+
+- **Maven Solution:**
+  - Maven automates this by downloading necessary JAR files from the internet based on a configuration file.
+  - Maven makes these JAR files available during compile and runtime.
+
+#### How Maven Works
+1. **Configuration File:**
+   - Developers write a "shopping list" in the Maven configuration file (`pom.xml`).
+
+2. **Dependency Resolution:**
+   - Maven checks the local repository on the computer.
+   - If not found locally, Maven fetches dependencies from the Maven Central Repository on the internet.
+   - Maven saves these files in the local repository for future use.
+
+3. **Handling Dependencies:**
+   - Maven retrieves the specified project dependencies and any supporting dependencies automatically.
+
+4. **Build and Run:**
+   - Maven handles the class and build path configurations.
+   - Developers simply set up the Maven config file, and Maven manages the rest.
+
+#### Benefits of Using Maven
+- Simplifies dependency management and reduces manual effort.
+- Automates downloading and configuring necessary JAR files.
+- Ensures all required dependencies are included, making the development process more efficient.

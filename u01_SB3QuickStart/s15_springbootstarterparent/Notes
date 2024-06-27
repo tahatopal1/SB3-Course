@@ -1,0 +1,70 @@
+### Spring Boot Starter Parent Summary
+
+#### Overview
+
+- **Spring Boot Starter Parent:**
+  - A special starter that provides default configurations for Maven projects using Spring Boot.
+  - Automatically included in the `pom.xml` file when using Spring Initializr.
+
+#### Configuration in `pom.xml`
+
+- **Parent Entry:**
+
+  <parent>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-parent</artifactId>
+      <version>2.5.4</version>
+  </parent>
+
+#### Maven Defaults Provided by Starter Parent
+
+- **Default Compiler Levels:**
+  - Sets default Java compiler levels.
+  - Supports UTF-8 source encoding by default.
+
+- **Custom Java Version:**
+
+  - Override the default Java version by setting a property:
+    <properties>
+        <java.version>12</java.version>
+    </properties>
+
+#### Dependency Version Management
+
+- **No Need to List Versions:**
+  - Dependencies inherit versions from the Starter Parent.
+  - Ensures compatibility of all Spring Boot starter dependencies.
+
+#### Default Configuration of Spring Boot Maven Plugin
+
+- **Plugin Reference in `pom.xml`:**
+
+  <build>
+      <plugins>
+          <plugin>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>
+          </plugin>
+      </plugins>
+  </build>
+
+- **Run Command:**
+  - Run your application with:
+
+    mvn spring-boot:run
+
+#### Benefits of Spring Boot Starter Parent
+
+1. **Default Maven Configuration:**
+   - Provides default settings for Java version, UTF-8 encoding, etc.
+
+2. **Simplified Dependency Management:**
+   - Specify the version only in the parent, and all starter dependencies inherit the version.
+   - Ensures compatibility of dependencies.
+
+3. **Pre-configured Spring Boot Plugin:**
+   - No additional configuration needed to use the Spring Boot Maven plugin.
+   - Ready-to-go setup for running Spring Boot applications.
+
+Using the Spring Boot Starter Parent simplifies project setup, ensures consistent and compatible dependencies,
+and provides pre-configured settings to streamline development.

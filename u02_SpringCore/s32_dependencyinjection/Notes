@@ -1,0 +1,44 @@
+### Spring Dependency Injection
+
+**Definition:**
+- Dependency Injection (DI) is a design pattern that implements the dependency inversion principle, where the client delegates the responsibility of providing its dependencies to another object.
+
+### Example Using a Car Factory:
+- **Scenario:**
+  - You want to purchase a car.
+  - You request a car from the car factory.
+  - The factory assembles the car from various parts (e.g., door, engine, windshield) and provides you with the complete car.
+  - Similarly, DI involves requesting an object, and the factory (or container) assembles and injects all necessary components beforehand.
+
+### Spring Container and Dependency Injection:
+- The Spring container acts as an object factory:
+  - Your application can request an object from the Spring container.
+  - The requested object may have dependencies (e.g., a coach with assistant coaches, trainers, medical staff).
+  - The Spring container assembles and provides the object with all its dependencies, ready to use.
+
+### Key Functions of the Spring Container:
+1. **Creating and Managing Objects:** Using Inversion of Control (IoC).
+2. **Injecting Object Dependencies:** Using Dependency Injection (DI).
+
+### Injection Types:
+- **Constructor Injection:**
+  - Use when you have required dependencies.
+  - Recommended as the first choice by the Spring development team.
+- **Setter Injection:**
+  - Use when you have optional dependencies.
+  - Allows for default logic if the dependency is not provided.
+
+### Spring Autowiring:
+- **Definition:**
+  - Autowiring automatically injects dependencies by matching a class or interface.
+  - Spring scans for components annotated with `@Component` and injects them where needed.
+
+- **Example:**
+  - If you need a `Coach` implementation, Spring scans for classes implementing the `Coach` interface.
+  - It finds a `CricketCoach` and injects it as the dependency.
+
+### Summary:
+- DI simplifies object creation and dependency management.
+- The Spring container manages object lifecycle and dependencies.
+- There are multiple ways to configure DI, with constructor and setter injection being the most common.
+- Autowiring streamlines dependency injection by automatically matching and injecting dependencies based on component annotations.

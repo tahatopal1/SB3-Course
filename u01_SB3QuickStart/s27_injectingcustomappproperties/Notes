@@ -1,0 +1,50 @@
+Here's a summary of the video on using custom application properties in Spring Boot:
+
+### Problem:
+- Need to make the application configurable without hardcoding values.
+- Need to read application configuration from a properties file.
+
+### Solution:
+- Use an `application.properties` file.
+
+### Steps:
+
+1. **Standard Properties File:**
+   - Spring Boot reads from a default properties file located at `src/main/resources/application.properties`.
+   - Custom properties can be defined in this file.
+   - No additional configuration is needed as Spring Boot automatically loads this file.
+
+2. **Defining Custom Properties:**
+   - Define custom properties in `application.properties`.
+   - Example:
+
+     coach.name=Mickey Mouse
+     team.name=The Mouse Club
+
+3. **Injecting Properties into the Application:**
+   - Use the `@Value` annotation to inject properties into your Spring Boot application.
+   - Example of injecting properties into a Rest Controller:
+
+     @RestController
+     public class FunRestController {
+
+         @Value("${coach.name}")
+         private String coachName;
+
+         @Value("${team.name}")
+         private String teamName;
+
+         // other methods
+     }
+
+   - The `@Value` annotation pulls values from `application.properties` and assigns them to the respective fields.
+
+### Benefits:
+- Easy to make use of custom application properties.
+- No additional coding or configuration is required.
+- Spring Boot automatically loads the `application.properties` file and makes it available via the `@Value` annotation.
+
+### Next Steps:
+- The video concludes with a promise to demonstrate the code in Eclipse, showcasing the properties being used in a running application.
+
+This summary highlights the key points and steps for using custom application properties in a Spring Boot application as described in the video.

@@ -1,0 +1,68 @@
+### Running a Spring Boot Application from the Command Line on Windows
+
+#### Prerequisites
+- Ensure Java is installed and configured properly.
+- Have your Spring Boot application files ready in an accessible directory without spaces.
+
+#### Step-by-Step Guide
+
+1. **Open Command Prompt:**
+   - Navigate to the search bar, type `cmd`, and select Command Prompt.
+
+2. **Navigate to Your Project Directory:**
+   - Use the `cd` command to navigate to your project directory.
+   - Example:
+     ```sh
+     cd D:\Users\luv2code\dev-spring-boot\05-command-line-demo
+     ```
+
+3. **Verify Java Installation:**
+   - Check if Java is installed and configured properly by running:
+     ```sh
+     echo %JAVA_HOME%
+     java --version
+     ```
+   - Ensure you see the correct outputs indicating Java is installed properly.
+
+4. **Package Your Application:**
+   - Run the following command to package your Spring Boot application:
+     ```sh
+     mvnw package
+     ```
+   - This command uses Maven to package your application and creates a JAR file in the `target` directory.
+
+5. **Run the Application with `java -jar`:**
+   - Execute the JAR file using the following command:
+     ```sh
+     java -jar target\mycoolapp-0.0.1-SNAPSHOT.jar
+     ```
+   - This starts your Spring Boot application, including the embedded server.
+
+6. **Verify Application is Running:**
+   - Open a web browser and navigate to `http://localhost:8080`.
+   - Check different endpoints to ensure the application is functioning correctly:
+     - `http://localhost:8080`
+     - `http://localhost:8080/workout`
+     - `http://localhost:8080/fortune`
+
+7. **Stop the Application:**
+   - In the command prompt window, press `Ctrl + C` to stop the application.
+
+8. **Run the Application Using Spring Boot Maven Plugin:**
+   - Another way to run the application is by using the Spring Boot Maven plugin:
+     ```sh
+     mvnw spring-boot:run
+     ```
+   - This command also starts your Spring Boot application.
+
+9. **Verify and Stop the Application Again:**
+   - Check the application in the browser as before to ensure it's running.
+   - Stop the application with `Ctrl + C`.
+
+10. **Exit Command Prompt:**
+    - Type `exit` to close the command prompt window.
+
+### Summary
+By following these steps, you can successfully run your Spring Boot application from the command line
+on Windows, without needing to keep your IDE open. This method leverages the embedded server included
+in the Spring Boot application JAR file, allowing for a streamlined and efficient workflow.

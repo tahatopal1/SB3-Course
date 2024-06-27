@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/u01_SB3QuickStart/s07_createrestcontroller/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u01_SB3QuickStart/s16_springbootdevtools/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u01_SB3QuickStart/s18_springbootactuator/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u01_SB3QuickStart/s22_springbootactuatorsecuringendpoints/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u01_SB3QuickStart/s27_injectingcustomappproperties/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u01_SB3QuickStart/s29_configuringspringbootapp/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s34_constructorinjection/springcoredemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s39_componentscanningcoding1/springcoredemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s40_componentscanningcoding2/springcoredemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s41_setterinjection/springcoredemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s44_qualifiers/springcoredemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s47_primary/springcoredemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s49_lazyinitialization/springcoredemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s51_beanscopes/springcoredemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s54_beanlifecycle/springcoredemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s52_beanscopes/springcoredemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u02_SpringCore/s57_javaconfigbean/springcoredemo/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="corretto-21" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

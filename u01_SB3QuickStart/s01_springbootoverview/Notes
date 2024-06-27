@@ -1,0 +1,73 @@
+Introduction to Spring Boot
+
+Spring Framework:
+
+    ->  Overview: A popular framework for building Java applications, providing numerous helper classes
+and annotations.
+
+    ->  Challenges with Traditional Spring:
+
+        ->  Dependency Management: Determining which Jar dependencies are needed.
+        ->  Configuration: Deciding between XML or Java configuration.
+        ->  Server Setup: Choosing and installing servers like Tomcat, JBoss, WebSphere etc...
+        ->  Complexity: Even basic setup can be complex and time-consuming.
+
+Spring Boot:
+
+    ->  Purpose: Simplifies the setup and development of Spring applications.
+    ->  Auto-Configuration: Automatically configures the application based on the classpath and
+properties file.
+    ->  Dependency Management: Resolves dependency conflicts.
+    ->  Embedded Server: Provides an embedded HTTP server, such as Tomcat, Jetty or Undertow,
+eliminating the need for external server setup.
+    ->  Ease of Use: Makes Spring application easier to start and develop.
+
+
+Relationship Between Spring Boot and Spring:
+
+    ->  Integration: Spring Boot uses Spring behind the scenes, simplifying its use.
+    ->  Learning Requirement: Need to learn both Spring Boot and Spring.
+
+Spring Initializer
+
+    ->  Purpose: A website (start.spring.io) for quickly creating starter Spring projects.
+    ->  Functionality: Allows selection of dependencies and generates Maven or Gradle projects.
+    ->  IDE Support: Projects can be imported into IDEs like Eclipse, IntelliJ, NetBeans, or used with
+a plain text editor and Maven from the command line.
+
+Embedded Server:
+
+    ->  Support: Provides embedded server like Tomcat, Jetty and Undertow.
+    ->  Self-Contained: Applications are packaged as JAR files containing both the application code and
+the embedded server.
+    ->  Standalone Running: Can run applications standalone from the IDE or command line using.
+
+Deploying Spring Boot Applications:
+
+    ->  JAR Files: Default packaging includes the embedded server, allowing standalone execution.
+    ->  WAR Files: Spring Boot applications can also be packaged as WAR files for deployment on
+external servers like Tomcat, JBoss or WebSphere.
+        -> Traditional Deployment: Allows deployment to a pre-installed server, making it compatible
+    with traditional deployment methods.
+
+Frequently Asked Questions:
+
+    1) Does Spring Boot replace Spring MVC, Spring REST etc.
+
+        Answer: No, Spring Boot uses these technologies in the background. It's about simplifying
+    configuration, not replacing these components.
+
+    2) Does Spring Boot code run faster than regular Spring code?
+
+        Answer: No, the performance is similar since Spring Boot uses the same underlying Spring
+    framework code.
+
+    3) Do I need a special IDE for Spring Boot?
+
+        Answer: No, you can use any IDE or even a plain text editor.
+
+Conclusion
+
+    Spring Boot simplifies the development of Spring applications by minimizing configuration and
+providing embedded servers. It supports both modern and traditional deployment methods, making it
+versatile for different project requirement.

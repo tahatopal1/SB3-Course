@@ -1,0 +1,58 @@
+### Summary of Bean Lifecycle Methods in Spring
+
+#### Context:
+The video discusses the bean lifecycle in Spring, focusing on lifecycle methods (`init` and `destroy`) and how to customize the initialization
+and destruction of beans.
+
+#### Key Points:
+
+1. **Bean Lifecycle Overview**:
+   - When the Spring container starts:
+     1. Beans are instantiated.
+     2. Dependencies are injected.
+     3. Internal Spring processing occurs.
+     4. Custom initialization methods can be executed.
+   - When the container is shut down or stopped:
+     - Custom destroy methods are called.
+
+2. **Purpose of Lifecycle Methods**:
+   - **Initialization**: Custom code can be executed during bean initialization for:
+     - Calling custom business logic methods.
+     - Setting up resources such as databases, sockets, files.
+   - **Destruction**: Custom code can be executed during bean destruction for:
+     - Calling custom business logic.
+     - Cleaning up resources like databases, sockets, files.
+
+3. **Configuring Lifecycle Methods**:
+   - **Initialization Method**:
+     - Use the `@PostConstruct` annotation.
+     - Example:
+
+       @PostConstruct
+       public void doMyStartupStuff() {
+           // Custom initialization code
+       }
+
+     - The method can have any name, but it should contain the custom initialization code to be executed after the bean is constructed.
+
+   - **Destroy Method**:
+     - Use the `@PreDestroy` annotation.
+     - Example:
+
+       @PreDestroy
+       public void doMyCleanupStuff() {
+           // Custom cleanup code
+       }
+
+     - The method can have any name, but it should contain the custom cleanup code to be executed before the bean is destroyed.
+
+4. **Development Process**:
+   - Define methods for `init` and `destroy`.
+   - Add `@PostConstruct` annotation to the initialization method.
+   - Add `@PreDestroy` annotation to the destroy method.
+
+#### Conclusion:
+Bean lifecycle methods in Spring provide hooks to execute custom code during the initialization and destruction of beans.
+By using the `@PostConstruct` and `@PreDestroy` annotations, developers can set up necessary resources or clean up resources
+when beans are created or destroyed, respectively. This customization helps manage resources efficiently and ensure proper
+startup and cleanup processes in a Spring application.

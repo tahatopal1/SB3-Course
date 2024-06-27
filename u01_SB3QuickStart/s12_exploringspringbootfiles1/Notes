@@ -1,0 +1,87 @@
+### Spring Boot Project Structure Summary
+
+#### Overview
+
+- **Spring Initializr:**
+  - Generates a Maven project with a standard directory structure.
+
+#### Maven Standard Directory Structure
+
+1. **Java Source Code:**
+   - **`src/main/java`**: Contains Java source code.
+
+2. **Resources:**
+   - **`src/main/resources`**: Contains properties and configuration files used by the application.
+
+3. **Unit Testing:**
+   - **`src/test/java`**: Contains unit testing code.
+
+#### Maven Wrapper Files (`mvnw`)
+
+- **Purpose:**
+  - Allows running Maven projects without Maven installed on your system.
+  - Automatically downloads the correct Maven version if not present.
+
+- **Files:**
+  - **`mvnw.cmd`**: For Windows.
+  - **`mvnw.sh`**: For Linux or Mac.
+
+- **Usage:**
+  - Windows: `mvnw clean compile test`
+  - Linux/Mac: `./mvnw clean compile test`
+
+- **Note:**
+  - If Maven is already installed, these files are not required and can be ignored or deleted.
+
+#### POM File (Project Object Model)
+
+- **Purpose:**
+  - Includes project configuration and dependencies.
+  - Generated from Spring Initializr input (Group ID, Artifact ID, etc.).
+
+- **Spring Boot Starters:**
+  - Collections of Maven dependencies to simplify configuration.
+  - Examples: `spring-boot-starter-web` includes `spring-web`, `spring-webmvc`, `hibernate-validator`, `tomcat`, `json`.
+
+- **Spring Boot Maven Plugin:**
+  - Located at the bottom of the POM file.
+  - Used for packaging executable JARs or WARs.
+  - Commands:
+    - Package: `mvnw package`
+    - Run: `mvnw spring-boot:run`
+
+  - If Maven is already installed:
+    - Package: `mvn package`
+    - Run: `mvn spring-boot:run`
+
+#### Source Code
+
+- **Main Spring Boot Application Class:**
+  - Created by Spring Initializr.
+
+- **RestController Example:**
+  - `FundRestController` for exposing a simple REST API.
+
+### Benefits of Spring Boot and Maven
+
+- **Standard Directory Structure:**
+  - Simplifies onboarding for new developers.
+  - Ensures consistency across projects.
+
+- **IDE Support:**
+  - Compatible with major IDEs (Eclipse, IntelliJ, NetBeans).
+  - Easy project sharing between different IDEs.
+
+- **Dependency Management:**
+  - Automatic handling of JAR files.
+  - Ensures compatible versions of dependencies.
+
+- **Portability:**
+  - Maven projects can be easily imported and exported across different environments and IDEs.
+
+- **Productivity:**
+  - Minimal local configuration required.
+  - Quick setup and easy project management.
+
+By using Spring Boot with Maven, developers benefit from a standardized, efficient, and easy-to-manage project structure,
+making it easier to maintain and develop applications.

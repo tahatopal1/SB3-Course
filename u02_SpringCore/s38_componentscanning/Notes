@@ -1,0 +1,69 @@
+### Component Scanning with Spring
+
+**Overview:**
+- Component scanning in Spring automatically detects and registers beans annotated with specific annotations like `@Component`, `@Service`, `@Repository`, and `@Controller` in the Spring container.
+
+### Spring Boot Application Setup:
+- **Main Spring Boot Application Class:**
+  - Created by the Spring Initializer.
+  - Example: `SpringcoredemoApplication`.
+
+- **Annotations:**
+  - `@SpringBootApplication` is a composite annotation that includes:
+    - `@EnableAutoConfiguration`: Enables Spring Boot’s auto-configuration mechanism.
+    - `@ComponentScan`: Enables component scanning for the current package and its sub-packages.
+    - `@Configuration`: Allows registering additional beans and configuration classes.
+
+### Component Scanning Process:
+- **Automatic Component Scanning:**
+  - By default, Spring Boot scans the package of the main application class and its sub-packages.
+  - It starts from the package of the main Spring Boot application class and scans recursively.
+
+### Example Code:
+
+@SpringBootApplication
+public class SpringcoredemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(SpringcoredemoApplication.class, args);
+    }
+}
+
+- In the above example, `SpringcoredemoApplication` is the main class that triggers component scanning starting from its package.
+
+### Default Component Scanning:
+- **Default Behavior:**
+  - Scans the package where the main application class resides and all its sub-packages.
+  - This means any classes in these packages annotated with `@Component` and similar annotations will be registered as beans.
+
+### Common Pitfall:
+- **Packages Outside Default Scan:**
+  - If you create packages outside the default scan range (e.g., `com.luv2code.util`), they will not be scanned automatically.
+  - Only the package of the main Spring Boot application class and its sub-packages are scanned by default.
+
+### Explicit Package Scanning:
+- **Configuration:**
+  - You can specify additional base packages to scan using the `@ComponentScan` annotation.
+  - This is useful when you have packages outside the default scanning range.
+
+### Example of Explicit Package Scanning:
+
+@SpringBootApplication
+@ComponentScan(basePackages = {"com.luv2code.springcoredemo", "com.luv2code.util", "org.acme.cart", "edu.cmu.srs"})
+public class SpringcoredemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(SpringcoredemoApplication.class, args);
+    }
+}
+
+- In this example, the `@ComponentScan` annotation is used to explicitly list the base packages to scan.
+
+### Summary:
+- **Component Scanning:**
+  - Spring Boot automatically scans the package of the main application class and its sub-packages.
+  - For packages outside this range, you need to explicitly configure them using `@ComponentScan`.
+- **Annotations:**
+  - `@SpringBootApplication` combines multiple annotations to simplify configuration.
+  - Component scanning is a powerful feature that simplifies bean management and configuration in Spring applications.
+
+**Next Steps:**
+- The next video will demonstrate how to write the code to leverage default scanning and how to manually configure package scanning.

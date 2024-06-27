@@ -1,0 +1,50 @@
+### Spring Boot Dev Tools Summary
+
+#### Problem with Manual Restarts
+
+- **Issue:**
+  - Manually restarting a Spring Boot application after code changes is time-consuming and inefficient.
+
+#### Solution: Spring Boot Dev Tools
+
+- **What it Does:**
+  - Automatically restarts the application when code is updated.
+  - Requires only adding a dependency to the `pom.xml` file.
+
+#### Adding Spring Boot Dev Tools Dependency
+
+- **Dependency Entry in `pom.xml`:**
+  ```xml
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+  </dependency>
+  ```
+
+#### Configuring IntelliJ for Spring Boot Dev Tools
+
+- **Additional Configuration Needed for IntelliJ Community Edition:**
+
+1. **Enable Automatic Build:**
+   - Navigate to: `Preferences` > `Build, Execution, Deployment` > `Compiler`.
+   - Check the box: `Build project automatically`.
+
+2. **Allow Auto-Make to Start:**
+   - Navigate to: `Preferences` > `Advanced Settings`.
+   - Check the box: `Allow auto-make to start even if developed application is currently running`.
+
+#### Development Process Recap
+
+1. **Apply IntelliJ Configurations:**
+   - Enable automatic build and auto-make.
+
+2. **Edit `pom.xml`:**
+   - Add the Spring Boot Dev Tools dependency.
+
+3. **Add New Code:**
+   - Implement changes like adding a new REST endpoint.
+
+4. **Verify Automatic Reload:**
+   - Ensure that the application reloads automatically after code changes.
+
+By following these steps, you can significantly streamline your development workflow, making coding and testing changes faster and more efficient.

@@ -1,0 +1,94 @@
+### Spring Boot Actuator Summary
+
+#### Problem Statement
+
+- **Monitoring and Management:**
+  - How to monitor and manage a Spring Boot application?
+  - How to check the application's status?
+  - How to access application metrics?
+
+#### Solution: Spring Boot Actuator
+
+- **What it Does:**
+  - Exposes endpoints for monitoring and managing the application.
+  - Provides DevOps functionality out-of-the-box.
+  - Adds REST endpoints automatically without needing additional code.
+
+#### Adding Spring Boot Actuator Dependency
+
+- **Dependency Entry in `pom.xml`:**
+
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+  </dependency>
+
+#### Actuator Endpoints
+
+- **Default Endpoints:**
+  - All endpoints are prefixed with `/actuator`.
+
+- **Common Endpoints:**
+  - **/actuator/health:** Provides health information about the application.
+  - **/actuator/info:** Can provide additional information about the application (requires customization).
+
+#### Customizing Actuator Endpoints
+
+- **Exposing Info Endpoint:**
+  - Update `application.properties`:
+
+    management.endpoints.web.exposure.include=health,info
+    management.info.env.enabled=true
+
+- **Customizing /info Endpoint:**
+  - Add custom properties in `application.properties`:
+
+    info.app.name=MyApplication
+    info.app.description=A Spring Boot Application
+    info.app.version=1.0.0
+
+- **Accessing /info Endpoint:**
+  - Returns a JSON object with the information from `application.properties`.
+
+#### Other Actuator Endpoints
+
+- **Examples:**
+  - **/actuator/auditevents:** Lists audit events for the application.
+  - **/actuator/beans:** Lists all beans in the Spring application context.
+  - **/actuator/mappings:** Lists all request mappings for the application.
+
+- **Full List:**
+  - Available at [Spring Boot Actuator Documentation](https://luv2code.com/actuator-endpoints).
+
+#### Exposing All Actuator Endpoints
+
+- **Using Wildcard:**
+  - Update `application.properties`:
+
+    management.endpoints.web.exposure.include=*
+
+- **Example:**
+  - Accessing `/actuator/beans` provides a JSON dump of all beans registered with the Spring application context.
+
+#### Security Considerations
+
+- **Security Setup:**
+  - By default, exposing all endpoints can be a security risk.
+  - Security configuration will be covered in later videos to lock down endpoints to authorized users only.
+
+#### Development Process Recap
+
+1. **Edit `pom.xml`:**
+   - Add the Spring Boot Actuator dependency.
+
+2. **View Actuator Endpoints:**
+   - Access endpoints such as `/health` and `/info`.
+
+3. **Customize Endpoints:**
+   - Update `application.properties` to expose and customize endpoints.
+
+4. **Check Endpoints:**
+   - Ensure the application is monitored and managed effectively with the new endpoints.
+
+By integrating Spring Boot Actuator, developers can easily monitor and manage their applications,
+access critical metrics, and ensure their applications are running smoothly.

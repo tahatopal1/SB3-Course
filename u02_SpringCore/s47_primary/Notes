@@ -1,0 +1,31 @@
+### Summary of Primary Annotation in Spring
+
+#### Context:
+The video discusses how to resolve the issue of having multiple coach implementations using Spring's annotations, specifically focusing on the `@Primary` annotation.
+
+#### Key Points:
+
+1. **Multiple Implementations Issue**:
+   - Previously addressed using the `@Qualifier` annotation to specify a particular coach by name.
+   - An alternative is to use the `@Primary` annotation to designate a default coach.
+
+2. **Using `@Primary` Annotation**:
+   - The `@Primary` annotation indicates which implementation should be the primary one when multiple options are available.
+   - No need for `@Qualifier` in constructor injection if `@Primary` is used on one implementation.
+   - Example: Marking `TrackCoach` with `@Primary` makes it the default coach.
+
+3. **Caveat with `@Primary`**:
+   - Only one implementation can be marked as `@Primary`.
+   - Marking multiple classes with `@Primary` leads to an error ("more than one primary bean found").
+
+4. **Mixing `@Primary` and `@Qualifier`**:
+   - It is possible to use both, but `@Qualifier` has a higher priority over `@Primary`.
+   - If both are used, the `@Qualifier` annotation will override the `@Primary`.
+
+5. **Recommendation**:
+   - Use `@Qualifier` for specificity and higher priority.
+   - `@Qualifier` is preferred as it avoids the risk of multiple primary beans and provides explicit control over which bean to use.
+
+#### Conclusion:
+While `@Primary` can simplify bean selection when multiple implementations exist, `@Qualifier` offers more control and is generally recommended for its
+specificity and higher priority.

@@ -1,0 +1,100 @@
+### Setter Injection in Spring
+
+**Overview:**
+- Setter injection is a type of dependency injection where dependencies are injected into a class via setter methods.
+
+### Steps for Setter Injection:
+
+1. **Create Setter Methods:**
+   - Define setter methods in your class for the dependencies you want to inject.
+
+2. **Use `@Autowired` Annotation:**
+   - Annotate the setter methods with `@Autowired` to enable Spring to perform dependency injection.
+
+### Example Process:
+
+1. **Define the Interface and Implementation:**
+
+   public interface Coach {
+       String getDailyWorkout();
+   }
+
+   @Component
+   public class CricketCoach implements Coach {
+       @Override
+       public String getDailyWorkout() {
+           return "Practice fast bowling for 15 minutes.";
+       }
+   }
+
+2. **Create the Controller with Setter Methods:**
+
+   @RestController
+   public class DemoController {
+       private Coach coach;
+
+       @Autowired
+       public void setCoach(Coach coach) {
+           this.coach = coach;
+       }
+
+       @GetMapping("/workout")
+       public String getDailyWorkout() {
+           return coach.getDailyWorkout();
+       }
+   }
+
+### How Spring Processes Setter Injection:
+
+1. **Component Scanning:**
+   - Spring scans for components (e.g., `CricketCoach` annotated with `@Component`).
+
+2. **Dependency Injection:**
+   - Spring creates an instance of `CricketCoach` and `DemoController`.
+   - It then calls `DemoController.setCoach` and passes the `CricketCoach` instance as the argument.
+
+### Flexibility in Method Naming:
+- **Any Method Name:**
+  - You can use any method name for dependency injection, not just traditional setter names.
+  - Annotate the method with `@Autowired` to enable Spring to inject the dependency.
+
+@RestController
+public class DemoController {
+    private Coach coach;
+
+    @Autowired
+    public void configureCoach(Coach coach) {
+        this.coach = coach;
+    }
+
+    @GetMapping("/workout")
+    public String getDailyWorkout() {
+        return coach.getDailyWorkout();
+    }
+}
+
+### When to Use Each Injection Type:
+
+- **Constructor Injection:**
+  - Use when you have required dependencies.
+  - Preferred by the Spring development team.
+  - Ensures that the dependencies are injected at the time of object creation.
+
+- **Setter Injection:**
+  - Use when you have optional dependencies.
+  - Allows setting reasonable default logic if the dependency is not provided.
+
+### Summary:
+- **Setter Injection:**
+  - Define setter methods and annotate them with `@Autowired`.
+  - Spring will handle the dependency injection automatically.
+  - Flexible in method naming for injection purposes.
+
+- **Choosing Injection Type:**
+  - Use constructor injection for required dependencies.
+  - Use setter injection for optional dependencies.
+
+**Next Steps:**
+- Implement setter injection in your IDE.
+- Explore the flexibility and scenarios where setter injection can be beneficial.
+

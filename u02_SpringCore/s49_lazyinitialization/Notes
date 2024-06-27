@@ -1,0 +1,49 @@
+### Summary of Lazy Initialization in Spring
+
+#### Context:
+The video discusses lazy initialization in Spring, its usage, benefits, and potential drawbacks.
+
+#### Key Points:
+
+1. **Default Bean Initialization**:
+   - By default, Spring initializes all beans when the application starts.
+   - This involves scanning for components and creating instances of each bean, making them available.
+
+2. **Diagnostics**:
+   - Adding `println` statements to constructors (e.g., `CricketCoach`, `BaseballCoach`, `TrackCoach`, `TennisCoach`) helps observe
+bean initialization during application startup.
+
+3. **Lazy Initialization**:
+   - **Definition**: Beans are only initialized when needed for dependency injection or explicitly requested.
+   - **Implementation**: Add the `@Lazy` annotation to a class.
+   - **Example**: Applying `@Lazy` to `TrackCoach` means it won't be initialized unless required by another bean.
+
+4. **Example Scenario**:
+   - Injecting `CricketCoach` into `DemoController` will initialize `CricketCoach`, but `TrackCoach` (marked as `@Lazy`) won’t be initialized
+unless explicitly required.
+
+5. **Global Configuration**:
+   - To avoid annotating each bean individually, lazy initialization can be enabled globally by setting `spring.main.lazy-initialization=true`
+in `application.properties`.
+   - This setting ensures no beans are created until explicitly needed, including controllers and services.
+
+6. **Diagnostics with Global Configuration**:
+   - Example: Accessing the `/dailyworkout` endpoint triggers the initialization of `CricketCoach` and then `DemoController`.
+
+7. **Advantages of Lazy Initialization**:
+   - Beans are created only when needed, potentially leading to faster startup times for applications with many components.
+
+8. **Disadvantages of Lazy Initialization**:
+   - **Delayed Initialization**: Components like `RestController` are not created until requested, leading to a slight delay on first access.
+   - **Configuration Issues**: Potential issues might not be discovered until runtime.
+   - **Memory Considerations**: Ensure there is enough memory to handle all beans once they are eventually created.
+
+9. **Best Practices**:
+   - Lazy initialization is disabled by default.
+   - Profile the application to determine if lazy initialization offers any significant benefits.
+   - Avoid premature optimization; only apply lazy initialization if profiling indicates a clear advantage.
+
+#### Conclusion:
+Lazy initialization in Spring can optimize startup times by deferring bean creation until needed.
+However, it should be used judiciously, with careful consideration of potential drawbacks such as delayed component availability
+and runtime configuration issues. Always profile the application to make an informed decision about implementing lazy initialization.
