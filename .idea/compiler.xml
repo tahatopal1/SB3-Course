@@ -10,6 +10,7 @@
         <module name="springcoredemo" />
         <module name="demo" />
         <module name="springcoredemo (8)" />
+        <module name="cruddemo" />
         <module name="springcoredemo (7)" />
         <module name="springcoredemo (6)" />
         <module name="springcoredemo (5)" />
@@ -27,6 +28,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="cruddemo" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="demo (1)" options="-parameters" />
       <module name="demo (2)" options="-parameters" />

@@ -1,0 +1,105 @@
+### JPA Development Process
+
+#### Overview
+We will cover the JPA development process. The primary steps involve annotating Java classes and developing Java code to perform database operations.
+
+#### Key Terminology
+- **JPA**: Java Persistence API, with Hibernate as the default implementation in Spring Boot.
+- **Entity Class**: A Java class that is mapped to a database table.
+
+#### Steps in JPA Development Process
+
+1. **Annotate the Java Class**:
+   - Map the class to a database table using `@Entity` and `@Table` annotations.
+   - Map the fields to database columns using `@Column` annotations.
+
+2. **Develop Java Code for Database Operations**:
+   - Perform CRUD (Create, Read, Update, Delete) operations using JPA.
+
+#### Entity Class Example
+
+- **Java Class**: `Student`
+- **Database Table**: `student`
+- **Fields**:
+  - `id`
+  - `firstName`
+  - `lastName`
+  - `email`
+
+#### Annotations and Mappings
+
+1. **Class-Level Annotations**:
+   - `@Entity`: Marks the class as an entity.
+   - `@Table(name = "student")`: Maps the class to the database table `student`.
+
+   @Entity
+   @Table(name = "student")
+   public class Student {
+       // Fields, constructors, getters, and setters
+   }
+
+2. **Field-Level Annotations**:
+   - `@Column(name = "id")`: Maps the field to the database column `id`.
+   - `@Column(name = "first_name")`: Maps the field to the database column `first_name`.
+   - `@Column(name = "last_name")`: Maps the field to the database column `last_name`.
+   - `@Column(name = "email")`: Maps the field to the database column `email`.
+
+   @Entity
+   @Table(name = "student")
+   public class Student {
+       @Id
+       @GeneratedValue(strategy = GenerationType.IDENTITY)
+       @Column(name = "id")
+       private Long id;
+
+       @Column(name = "first_name")
+       private String firstName;
+
+       @Column(name = "last_name")
+       private String lastName;
+
+       @Column(name = "email")
+       private String email;
+
+       // Constructors, getters, and setters
+   }
+
+3. **Constructor Requirements**:
+   - The entity class must have a public or protected no-argument constructor.
+
+#### Primary Key and ID Generation Strategies
+
+1. **Primary Key**:
+   - Uniquely identifies each row in a table.
+   - Cannot contain `NULL` values.
+   - In MySQL, use `AUTO_INCREMENT` for automatic id generation.
+
+   CREATE TABLE student (
+       id INT NOT NULL AUTO_INCREMENT,
+       first_name VARCHAR(255),
+       last_name VARCHAR(255),
+       email VARCHAR(255),
+       PRIMARY KEY (id)
+   );
+
+2. **ID Generation Strategies**:
+   - `GenerationType.AUTO`: Picks an appropriate strategy for the database.
+   - `GenerationType.IDENTITY`: Uses the database's identity column.
+   - `GenerationType.SEQUENCE`: Uses a database sequence.
+   - `GenerationType.TABLE`: Uses a database table to ensure uniqueness.
+   - `GenerationType.UUID`: Uses a globally unique identifier.
+
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
+
+3. **Custom ID Generation**:
+   - Implement a custom ID generation strategy if none of the built-in strategies fit your needs.
+   - Implement the `IdentifierGenerator` interface and override the `generate` method.
+
+   public class CustomIdGenerator implements IdentifierGenerator {
+       @Override
+       public Serializable generate(SharedSessionContractImplementor session, Object obj) {
+           // Custom ID generation logic
+       }
+   }

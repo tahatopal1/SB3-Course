@@ -1,0 +1,51 @@
+### Spring Boot Project Setup with Hibernate JPA
+
+#### Overview
+We will set up our Spring Boot project with automatic data source configuration, using Hibernate as the default JPA implementation.
+EntityManager, a key component from the Jakarta Persistence API (JPA), will be used for creating queries.
+
+#### Key Points
+
+1. **Automatic Data Source Configuration**:
+    - Spring Boot automatically creates beans for `DataSource` and `EntityManager` based on the configuration.
+    - These can be injected into the application, such as injecting `EntityManager` into a DAO.
+
+2. **Project Setup with Spring Initializr**:
+    - Use [Spring Initializr](http://start.spring.io) to set up the project.
+    - Add dependencies for MySQL Driver and Spring Data JPA.
+
+3. **Configuration**:
+    - Spring Boot configures the data source based on entries in the `pom.xml` file.
+    - Add database driver and Spring Data JPA entries in `pom.xml`.
+    - Spring Boot reads database connection information from `application.properties`.
+
+4. **application.properties File**:
+    - Three key entries:
+        - `spring.datasource.url`
+        - `spring.datasource.username`
+        - `spring.datasource.password`
+    - No need to specify the JDBC driver class name; Spring Boot detects it from the data source URL.
+
+5. **Creating a Spring Boot Command Line Application**:
+    - This initial setup focuses on Hibernate JPA coding.
+    - Later, it will be applied to a CRUD REST API.
+
+#### Command Line Application Layout
+
+- **Spring Boot Application**:
+    - Main method as usual.
+    - Create a `CommandLineRunner` bean.
+
+- **CommandLineRunner**:
+    - Executes code after Spring Beans are loaded into the application context.
+    - Example code block with Lambda expression:
+
+      return args -> {
+          System.out.println("Hello world");
+          // Future DAO code for database interaction will be added here
+      };
+
+#### Next Steps
+- Proceed to the next video to set up the Spring Boot project.
+
+---
