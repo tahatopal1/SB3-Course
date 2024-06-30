@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="demo (5)" />
         <module name="springcoredemo" />
+        <module name="cruddemo (1)" />
         <module name="demo" />
         <module name="springcoredemo (8)" />
         <module name="cruddemo" />
@@ -29,6 +30,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cruddemo" options="-parameters" />
+      <module name="cruddemo (1)" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="demo (1)" options="-parameters" />
       <module name="demo (2)" options="-parameters" />

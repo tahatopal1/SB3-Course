@@ -22,6 +22,7 @@
         <option value="$PROJECT_DIR$/u02_SpringCore/s52_beanscopes/springcoredemo/pom.xml" />
         <option value="$PROJECT_DIR$/u02_SpringCore/s57_javaconfigbean/springcoredemo/pom.xml" />
         <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s65_settingupspringbootproject/cruddemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s66_jpaannotations/cruddemo/pom.xml" />
       </list>
     </option>
   </component>
