@@ -18,6 +18,8 @@
     <file url="file://$PROJECT_DIR$/u02_SpringCore/s54_beanlifecycle/springcoredemo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/u02_SpringCore/s57_javaconfigbean/springcoredemo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s65_settingupspringbootproject/cruddemo/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s66_jpaannotations/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s68_jpaannotations/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s70_savingJPAobjects/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s71_primarykeys/cruddemo/src/main/java" charset="UTF-8" />
   </component>
 </project>

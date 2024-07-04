@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s71_primarykeys/cruddemo/src/main/resources/static/scripts/03-student-tracker-alter-auto-increment.sql" dialect="MariaDB" />
+  </component>
+</project>

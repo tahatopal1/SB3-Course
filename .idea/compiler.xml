@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -10,10 +11,12 @@
         <module name="springcoredemo" />
         <module name="cruddemo (1)" />
         <module name="demo" />
+        <module name="cruddemo (2)" />
         <module name="springcoredemo (8)" />
         <module name="cruddemo" />
         <module name="springcoredemo (7)" />
         <module name="springcoredemo (6)" />
+        <module name="cruddemo (3)" />
         <module name="springcoredemo (5)" />
         <module name="demo (2)" />
         <module name="springcoredemo (4)" />
@@ -31,6 +34,8 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cruddemo" options="-parameters" />
       <module name="cruddemo (1)" options="-parameters" />
+      <module name="cruddemo (2)" options="-parameters" />
+      <module name="cruddemo (3)" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="demo (1)" options="-parameters" />
       <module name="demo (2)" options="-parameters" />
