@@ -1,0 +1,36 @@
+**Overview**:
+- The video series will teach how to create REST APIs and Web Services using Spring.
+- Key topics include REST concepts, JSON, HTTP messaging, and using Postman for testing.
+
+**Practical Focus**:
+- The series focuses on practical results and is an introduction to Spring REST development.
+- For detailed reference, viewers are directed to the Spring Reference Manual.
+
+**Business Problem**:
+- The goal is to build a client application that provides weather reports for a city by retrieving data from an external service.
+
+**Application Architecture**:
+- **My Weather App**: The client application.
+- **Weather Service**: An external third-party service that provides weather data.
+
+**Connecting to the Weather Service**:
+- **REST API Calls over HTTP**: REST (REpresentational State Transfer) is a lightweight communication method between applications.
+- **Language Independence**: REST can be implemented in any programming language on both client and server sides, providing flexibility.
+- **Data Format**: REST can use any data format, commonly XML and JSON, with JSON being the most popular.
+
+**Using JSON for Data**:
+- JSON (JavaScript Object Notation) is a collection of name-value pairs.
+- The video series will cover JSON syntax and its usage in detail.
+
+**Example Solution**:
+- Use the Weather API from openweathermap.org.
+- The API provides weather data in JSON, XML, or HTML formats.
+- Example API call: Pass the latitude and longitude of a city to get the weather report.
+
+**REST API Benefits**:
+- **Language Independence**: Any programming language can be used to create clients or servers that communicate via REST.
+- **Flexibility**: Multiple types of client applications (e.g., Java, C#, Swift) can access the same REST service.
+- **HTTP-based**: REST APIs use standard HTTP methods, making them accessible and easy to implement.
+
+**Conclusion**:
+- The video emphasizes the flexibility and ease of using REST APIs for developing client applications that interact with external services.

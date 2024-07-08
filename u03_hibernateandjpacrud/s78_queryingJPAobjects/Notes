@@ -1,0 +1,47 @@
+### Summary of the Video: Querying Objects with JPQL
+
+**Introduction to JPQL**:
+- JPQL (Java Persistence Query Language) is used for querying objects in JPA.
+- It is similar to SQL but operates on entity names and fields instead of table names and columns.
+
+**Basic JPQL Syntax**:
+- To retrieve all students:
+
+  entityManager.createQuery("FROM Student", Student.class).getResultList();
+
+- `Student` refers to the JPA entity class name, not the database table.
+
+**Retrieving Specific Data**:
+- Example: Retrieve students with a specific last name:
+
+  entityManager.createQuery("FROM Student WHERE lastName = 'Doe'");
+
+- JPQL predicates (e.g., `WHERE`, `LIKE`, `OR`) use entity fields.
+
+**Using Named Parameters**:
+- Named parameters allow dynamic querying based on user input:
+
+  Query theQuery = entityManager.createQuery("FROM Student WHERE lastName = :theData");
+  theQuery.setParameter("theData", lastName);
+
+- Parameters are prefixed with a colon (e.g., `:theData`).
+
+**Strict JPQL with Select Clause**:
+- Strict JPQL requires a `SELECT` clause:
+
+  SELECT s FROM Student s WHERE s.email LIKE '%luv2code.com';
+
+- `s` is an alias for the entity, useful for complex queries.
+
+**Development Process for Adding JPQL to DAO**:
+1. **Add Method to DAO Interface**:
+   - Define a new method (e.g., `findAll()`) to return a list of students.
+
+2. **Implement Method in DAO Implementation**:
+   - Use `entityManager.createQuery("FROM Student")`.
+   - No need for a transactional annotation for read-only queries.
+
+3. **Update Main Application**:
+   - In the main application, call the new DAO method to retrieve and display students.
+
+By following these steps, you can effectively query multiple objects using JPQL in a JPA-based application.

@@ -21,5 +21,12 @@
     <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s68_jpaannotations/cruddemo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s70_savingJPAobjects/cruddemo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s71_primarykeys/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s77_readingJPAobjects/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s78_queryingJPAobjects/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s80_queryingJPAobjectswithparam/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s81_updatingJPAobjects/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s83_deletingJPAobjects/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s85_deletingallJPAobjects/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s86_createdatabasetablefromjavacode/cruddemo/src/main/java" charset="UTF-8" />
   </component>
 </project>

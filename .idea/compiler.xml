@@ -8,24 +8,31 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="demo (5)" />
-        <module name="springcoredemo" />
         <module name="cruddemo (1)" />
         <module name="demo" />
-        <module name="cruddemo (2)" />
         <module name="springcoredemo (8)" />
         <module name="cruddemo" />
-        <module name="springcoredemo (7)" />
+        <module name="cruddemo (6)" />
         <module name="springcoredemo (6)" />
-        <module name="cruddemo (3)" />
-        <module name="springcoredemo (5)" />
+        <module name="cruddemo (4)" />
         <module name="demo (2)" />
         <module name="springcoredemo (4)" />
-        <module name="demo (1)" />
-        <module name="springcoredemo (3)" />
         <module name="demo (4)" />
         <module name="springcoredemo (2)" />
+        <module name="cruddemo (8)" />
+        <module name="springcoredemo" />
+        <module name="cruddemo (2)" />
+        <module name="cruddemo (5)" />
+        <module name="springcoredemo (7)" />
+        <module name="cruddemo (3)" />
+        <module name="springcoredemo (5)" />
+        <module name="cruddemo (9)" />
+        <module name="demo (1)" />
+        <module name="springcoredemo (3)" />
+        <module name="cruddemo (7)" />
         <module name="demo (3)" />
         <module name="springcoredemo (1)" />
+        <module name="cruddemo (10)" />
         <module name="springcoredemo (9)" />
       </profile>
     </annotationProcessing>
@@ -34,8 +41,15 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cruddemo" options="-parameters" />
       <module name="cruddemo (1)" options="-parameters" />
+      <module name="cruddemo (10)" options="-parameters" />
       <module name="cruddemo (2)" options="-parameters" />
       <module name="cruddemo (3)" options="-parameters" />
+      <module name="cruddemo (4)" options="-parameters" />
+      <module name="cruddemo (5)" options="-parameters" />
+      <module name="cruddemo (6)" options="-parameters" />
+      <module name="cruddemo (7)" options="-parameters" />
+      <module name="cruddemo (8)" options="-parameters" />
+      <module name="cruddemo (9)" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="demo (1)" options="-parameters" />
       <module name="demo (2)" options="-parameters" />

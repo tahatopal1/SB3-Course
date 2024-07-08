@@ -26,6 +26,13 @@
         <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s68_jpaannotations/cruddemo/pom.xml" />
         <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s70_savingJPAobjects/cruddemo/pom.xml" />
         <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s71_primarykeys/cruddemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s77_readingJPAobjects/cruddemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s78_queryingJPAobjects/cruddemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s80_queryingJPAobjectswithparam/cruddemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s81_updatingJPAobjects/cruddemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s83_deletingJPAobjects/cruddemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s85_deletingallJPAobjects/cruddemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s86_createdatabasetablefromjavacode/cruddemo/pom.xml" />
       </list>
     </option>
   </component>
