@@ -1,0 +1,56 @@
+### Summary: Spring Data REST Configuration, Pagination, and Sorting
+
+**Default Endpoint Naming:**
+- Spring Data REST creates endpoints by converting the entity type to lowercase and adding an "s" (e.g., `Employee` becomes `/employees`).
+- Does not handle complex plural forms (e.g., `person/people`).
+
+**Custom Endpoint Naming:**
+- Use `@RepositoryRestResource` annotation to specify a custom path.
+
+  @RepositoryRestResource(path = "members")
+  public interface EmployeeRepository extends JpaRepository<Employee, Integer> {}
+
+- The endpoint will be accessible at `/members` instead of `/employees`.
+
+**Pagination:**
+- By default, Spring Data REST returns the first 20 elements (`page size = 20`).
+- Pages are zero-based (e.g., first page is `page=0`).
+- Pagination can be configured in `application.properties`:
+
+  spring.data.rest.default-page-size=50
+  spring.data.rest.max-page-size=100
+
+- Example pagination URLs:
+  - `GET /employees?page=0`
+  - `GET /employees?page=1`
+
+**Base Path Configuration:**
+- Set a base path for all repository resources in `application.properties`:
+
+  spring.data.rest.base-path=/magic-api
+
+- Endpoints will be accessible under this base path (e.g., `/magic-api/employees`).
+
+**Sorting:**
+- Sort by entity property names using query parameters.
+- Example sorting URLs:
+  - `GET /employees?sort=lastName` (default ascending)
+  - `GET /employees?sort=firstName,desc` (descending)
+  - `GET /employees?sort=lastName,firstName` (ascending by default)
+
+**Example Configuration in `application.properties`:**
+
+spring.data.rest.base-path=/magic-api
+spring.data.rest.default-page-size=50
+spring.data.rest.max-page-size=100
+
+**Usage Examples:**
+- Custom endpoint: `GET /magic-api/members`
+- Pagination: `GET /magic-api/employees?page=1`
+- Sorting: `GET /magic-api/employees?sort=lastName,firstName`
+
+**Properties Reference:**
+- Visit [Spring Boot Properties](https://luv2code.com/spring-boot-props) for a full list of Spring Data REST properties.
+
+These configurations allow for flexible and efficient data retrieval through RESTful endpoints,
+enhancing the usability and scalability of your Spring Boot applications.

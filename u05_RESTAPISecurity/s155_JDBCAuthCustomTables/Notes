@@ -1,0 +1,34 @@
+### Summary of the Video on Configuring Spring Security to Use Custom Tables
+
+**Introduction:**
+- **Default Schema:** Previous videos used Spring Security's default database schema.
+- **Custom Tables:** You can configure Spring Security to use your own custom tables, which might be necessary for existing security tables in a company.
+
+**Custom Table Example:**
+- **Scenario:** Companies often have specific table names and column names that don't match Spring Security's default schema.
+- **Example Tables:**
+  - `members`: Columns include `userID`, `PW` (password), and `active`.
+  - `roles`: Columns include `userID` and `role`.
+
+**Steps to Configure Custom Tables:**
+1. **Create Custom Tables with SQL:**
+   - Define the structure of your custom tables (e.g., `members` and `roles`).
+2. **Update Spring Security Configuration:**
+   - **Find User Query:** Provide a SQL query to find a user by username.
+   - **Find Roles Query:** Provide a SQL query to find roles by username.
+
+**Details of the Process:**
+- **Step 1: Create Custom Tables:**
+  - Use SQL to define custom tables.
+  - Example:
+    - `members` table with columns `userID`, `PW`, and `active`.
+    - `roles` table with columns `userID` and `role`.
+- **Step 2: Update Spring Security Configuration:**
+  - Modify the code to create a JDBC User Details manager.
+  - Provide the SQL query to find users in the `members` table.
+  - Provide the SQL query to find roles in the `roles` table.
+  - Use parameter placeholders (`?`) for the username supplied during login.
+
+**Key Points:**
+- **Flexibility:** You can use any table names and column names.
+- **Configuration:** You only need to inform Spring Security how to locate users and their roles in your custom tables.

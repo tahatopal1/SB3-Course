@@ -33,6 +33,23 @@
         <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s83_deletingJPAobjects/cruddemo/pom.xml" />
         <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s85_deletingallJPAobjects/cruddemo/pom.xml" />
         <option value="$PROJECT_DIR$/u03_hibernateandjpacrud/s86_createdatabasetablefromjavacode/cruddemo/pom.xml" />
+        <option value="$PROJECT_DIR$/u04_RESTCRUDAPI/s96_SpringBootRestController/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u04_RESTCRUDAPI/s99_SpringBootRESTPOJO/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u04_RESTCRUDAPI/s101_RestPathVariables/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u04_RESTCRUDAPI/s106_RESTExceptionHandling/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u04_RESTCRUDAPI/s110_RESTGlobalExceptionHandling/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u04_RESTCRUDAPI/s116_RESTCreateProject/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u04_RESTCRUDAPI/s122_RESTDefineServiceLayer/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u04_RESTCRUDAPI/s130_SpringDataJPA/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u04_RESTCRUDAPI/s133_SpringDataREST/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u04_RESTCRUDAPI/s136_SpringDataRestConfigAndSorting/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u05_RESTAPISecurity/s139_RESTAPISecurity/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u05_RESTAPISecurity/s141_RESTAPISecurityConfig/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u05_RESTAPISecurity/s143_URLRestriction/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u05_RESTAPISecurity/s148_JDBCAuthentication/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u05_RESTAPISecurity/s155_JDBCAuthCustomTables/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u05_RESTAPISecurity/s159_SecurityWithJPA/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/u06_SpringMVC/s160_ThymeleafOverview/demo/pom.xml" />
       </list>
     </option>
   </component>

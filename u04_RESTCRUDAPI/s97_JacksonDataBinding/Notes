@@ -1,0 +1,66 @@
+### Summary: Java JSON Data Binding with Jackson
+
+#### What is Data Binding?
+Data binding is the process of converting JSON data to a Java POJO (Plain Old Java Object) and vice versa.
+This process is also known as mapping, serialization, deserialization, marshalling, and unmarshalling.
+
+#### Jackson Project
+Jackson is a popular project used for data binding in Java, particularly in Spring applications.
+It handles the conversion between JSON and Java POJOs and supports data binding for both JSON and XML.
+
+#### How Jackson Works
+- **JSON to Java POJO**: Jackson calls the setter methods of the Java POJO.
+- **Java POJO to JSON**: Jackson calls the getter methods of the Java POJO.
+
+#### Example of JSON to Java POJO
+Given a JSON object:
+
+{
+  "id": 1,
+  "firstName": "John",
+  "lastName": "Doe",
+  "active": true
+}
+
+And a Java POJO:
+
+public class Student {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private boolean active;
+
+    // Getter and Setter methods
+}
+
+Jackson will call:
+- `setId(1)`
+- `setFirstName("John")`
+- `setLastName("Doe")`
+- `setActive(true)`
+
+#### Example of Java POJO to JSON
+
+Given a Java POJO:
+public class Student {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private boolean active;
+
+    // Getter and Setter methods
+}
+
+Jackson will call:
+- `getId()`
+- `getFirstName()`
+- `getLastName()`
+- `isActive()`
+And convert the POJO to JSON.
+
+#### Integration with Spring
+Spring automatically integrates with Jackson, handling the conversion of JSON data to POJOs and vice versa in REST controllers.
+This integration simplifies data binding in Spring applications.
+
+By understanding and utilizing Jackson for JSON data binding, you can efficiently handle data conversions in your Java applications,
+particularly when working with REST APIs in a Spring environment.

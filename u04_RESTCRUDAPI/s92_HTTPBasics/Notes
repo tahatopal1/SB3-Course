@@ -1,0 +1,35 @@
+REST commonly uses HTTP for CRUD operations:
+- **POST**: Create a new entity.
+- **GET**: Read a list or single entity.
+- **PUT**: Update an existing entity.
+- **DELETE**: Delete an existing entity.
+
+#### HTTP Request Components
+1. **Request Line**: Contains the HTTP method (e.g., GET, POST).
+2. **Header Variables**: Metadata about the request.
+3. **Message Body**: The payload (e.g., entity data in JSON).
+
+#### HTTP Response Components
+1. **Response Line**: Server protocol and status code (e.g., 200, 404, 500).
+2. **Header Variables**: Metadata about the response (e.g., content type).
+3. **Message Body**: The response data (e.g., list of customers in JSON or XML).
+
+#### HTTP Status Codes
+- **100s**: Informational
+- **200s**: Success
+- **300s**: Redirection
+- **400s**: Client errors (e.g., 401 Unauthorized, 404 Not Found)
+- **500s**: Server errors (e.g., 500 Internal Server Error)
+
+#### MIME Content Types
+Describes the format of the message:
+- **text/html**: HTML content
+- **text/plain**: Plain text
+- **application/json**: JSON data
+- **application/xml**: XML data
+
+#### Tools for Testing REST APIs
+- **Curl**: Command line tool
+- **Postman**: GUI tool, recommended for ease of use
+  - Download from [getpostman.com](http://getpostman.com)
+  - Free developer plan available

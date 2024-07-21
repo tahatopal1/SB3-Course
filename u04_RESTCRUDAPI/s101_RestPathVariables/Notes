@@ -1,0 +1,67 @@
+#### Introduction
+We are extending our Spring REST service to retrieve a single student by ID using path variables.
+The endpoint will be `/api/students/{studentId}`, where `{studentId}` is a dynamic path variable.
+
+#### Path Variables
+- **Path Variable**: A part of the URL that acts as a parameter, allowing us to pass data through the URL itself.
+- Example: `/api/students/0` retrieves the student with ID `0`.
+
+#### Big Picture
+- **REST Client**: Makes a GET request to `/api/students/{studentId}`.
+- **REST Service**: Responds with the student corresponding to the given ID.
+- **Conversion**: Jackson converts the student object to JSON before sending it back to the client.
+
+#### Development Process
+1. **Request Mapping**: Add a new request mapping in the REST controller to handle the endpoint `/api/students/{studentId}`.
+2. **Path Variable Binding**: Use the `@PathVariable` annotation to bind the path variable to a method parameter.
+
+#### Implementation Steps
+1. **Define the Endpoint**:
+   - Add a new request mapping with `@GetMapping("/students/{studentId}")` in the REST controller.
+2. **Create the Method**:
+   - Define a method `getStudent` that returns a `Student` object.
+   - Use `@PathVariable int studentId` to bind the path variable from the URL to the method parameter.
+3. **Retrieve the Student**:
+   - Create a list of students.
+   - Retrieve the student based on the provided `studentId`.
+   - Return the student object.
+4. **Conversion to JSON**:
+   - Jackson will automatically convert the student object to JSON before sending it back to the REST client.
+
+#### Example Code
+
+@RestController
+@RequestMapping("/api")
+public class StudentController {
+
+    private List<Student> students;
+
+    // Constructor to initialize the list of students
+    public StudentController() {
+        students = new ArrayList<>();
+        students.add(new Student("Porrima", "P"));
+        students.add(new Student("Mario", "M"));
+        students.add(new Student("Mary", "J"));
+    }
+
+    // Endpoint to retrieve a list of students
+    @GetMapping("/students")
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    // Endpoint to retrieve a single student by ID
+    @GetMapping("/students/{studentId}")
+    public Student getStudent(@PathVariable int studentId) {
+        return students.get(studentId);
+    }
+}
+
+#### Summary
+- **Request Mapping**: Define the new endpoint using `@GetMapping`.
+- **Path Variable Binding**: Use `@PathVariable` to bind the URL parameter to the method parameter.
+- **Conversion**: Jackson handles the conversion of the student object to JSON automatically.
+- **Testing**: The service can be tested using REST clients like Postman.
+
+By implementing the above steps, you can extend your Spring REST service to handle dynamic path variables and return
+specific student data based on the provided ID.

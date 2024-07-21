@@ -1,0 +1,32 @@
+### Summary: Creating a Spring REST Service for Students
+
+#### Overview
+We are creating a Spring REST service that returns a list of students when a GET request is made to the endpoint `/api/students`.
+
+#### Process
+1. **REST Client and REST Service**:
+   - The REST client sends a GET request to `/api/students`.
+   - The REST service returns a list of students as JSON.
+
+2. **JSON to Java POJO Conversion**:
+   - Spring and Jackson handle the conversion of JSON data to Java POJOs and vice versa automatically.
+
+#### Java POJO to JSON
+- We need to convert our list of student objects (Java POJOs) to JSON.
+- Jackson will automatically call the getter methods of the POJO to perform this conversion.
+
+#### Creating the Student POJO
+- **Class Definition**: The `Student` class will have fields such as `firstName`, `lastName`, etc.
+- **Methods**: It will include appropriate getter and setter methods.
+
+#### Creating the REST Controller
+1. **Controller Setup**:
+   - Annotate the class with `@RestController` and define the base request mapping with `@RequestMapping("/api")`.
+2. **Endpoint Definition**:
+   - Define an endpoint with `@GetMapping("/students")` that returns a list of students.
+   - The method `public List<Student> getStudents()` creates and returns a hard-coded list of students.
+
+#### How Jackson Works
+- **JSON to POJO**: Jackson calls the setter methods to populate the POJO.
+- **POJO to JSON**: Jackson calls the getter methods to convert the POJO to JSON.
+- **Behind the Scenes**: Spring and Jackson handle all JSON conversion automatically.

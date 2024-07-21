@@ -1,0 +1,41 @@
+### Summary: Spring REST Global Exception Handling
+
+Previously, exception handling was managed within individual REST controllers, which led to duplicated code and limited reusability.
+Global exception handling centralizes this process, making the code more reusable and maintainable, especially in large projects.
+
+#### Key Concepts:
+
+1. **Controller-Specific Exception Handling**:
+   - Previously, each REST controller had its own exception handler, which returned exceptions as JSON data.
+   - This method resulted in code duplication across multiple controllers. (Because it only works under which REST controllers it was written)
+
+2. **Global Exception Handling**:
+   - Centralizes exception handling using Spring's `@ControllerAdvice` annotation.
+   - Promotes code reuse and reduces duplication.
+   - Acts similarly to interceptors or filters, pre-processing requests and post-processing responses to handle exceptions.
+
+3. **Aspect-Oriented Programming (AOP)**:
+   - `@ControllerAdvice` uses AOP principles, allowing pre-processing and post-processing on controllers.
+   - It effectively applies AOP techniques such as before and after advice.
+
+#### Implementation Steps:
+
+1. **Create Controller Advice**:
+   - Define a new class, e.g., `StudentRESTExceptionHandler.java`, annotated with `@ControllerAdvice`.
+
+2. **Refactor Existing Code**:
+   - Move the exception handling code from the REST controllers to the new `@ControllerAdvice` class.
+   - Remove the `@ExceptionHandler` annotations and methods from the controllers and place them in the global handler.
+
+3. **Add Exception Handling to Controller Advice**:
+   - Transfer the existing exception handling methods to the `StudentRESTExceptionHandler`.
+   - The code logic within these methods remains unchanged; it's simply relocated.
+
+#### Benefits:
+
+- **Code Reusability**: Exception handling logic is centralized and can be reused across multiple controllers.
+- **Maintenance**: Easier to manage and update exception handling code.
+- **Best Practices**: Following this approach aligns with best practices for large-scale projects.
+
+The video emphasizes the practical application of `@ControllerAdvice` for efficient global exception handling in Spring REST applications.
+By centralizing exception handling, we enhance code maintainability and reusability, making the development process more streamlined and efficient.

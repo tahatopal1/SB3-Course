@@ -1,0 +1,141 @@
+### Summary: Configuring Basic Security in Spring Boot
+
+**User and Role Setup:**
+- **Example Users:** John, Mary, Susan.
+- **Roles:** Employee, Manager, Admin (customizable role names).
+
+**Development Process:**
+1. **Create Spring Security Configuration Class:**
+   - Annotate with `@Configuration`.
+   - Set up security configurations within this class.
+
+2. **Password Storage Formats:**
+   - **Plain Text (noop):** `{noop}password`
+   - **BCrypt:** `{bcrypt}hashed_password`
+
+**Example Configuration Steps:**
+
+1. **Create Spring Security Configuration Class:**
+   - Annotate the class with `@Configuration` and `@EnableWebSecurity`.
+   - Extend `WebSecurityConfigurerAdapter` to customize security configurations.
+   - Example:
+
+     import org.springframework.context.annotation.Bean;
+     import org.springframework.context.annotation.Configuration;
+     import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+     import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+     import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+     import org.springframework.security.core.userdetails.User;
+     import org.springframework.security.core.userdetails.UserDetails;
+     import org.springframework.security.core.userdetails.UserDetailsService;
+     import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+     @Configuration
+     @EnableWebSecurity
+     public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+         @Override
+         protected void configure(HttpSecurity http) throws Exception {
+             http
+                 .authorizeRequests()
+                     .anyRequest().authenticated()
+                     .and()
+                 .formLogin()
+                     .and()
+                 .httpBasic();
+         }
+
+         @Bean
+         @Override
+         public UserDetailsService userDetailsService() {
+             UserDetails user1 = User.withDefaultPasswordEncoder()
+                 .username("john")
+                 .password("test123")
+                 .roles("EMPLOYEE")
+                 .build();
+
+             UserDetails user2 = User.withDefaultPasswordEncoder()
+                 .username("mary")
+                 .password("test123")
+                 .roles("EMPLOYEE", "MANAGER")
+                 .build();
+
+             UserDetails user3 = User.withDefaultPasswordEncoder()
+                 .username("susan")
+                 .password("test123")
+                 .roles("EMPLOYEE", "MANAGER", "ADMIN")
+                 .build();
+
+             return new InMemoryUserDetailsManager(user1, user2, user3);
+         }
+     }
+
+2. **Define Users, Passwords, and Roles:**
+   - Use `UserDetailsManager` to manage user details.
+   - Example method to create in-memory users:
+
+     @Bean
+     public InMemoryUserDetailsManager userDetailsManager() {
+         UserDetails john = User.builder()
+             .username("john")
+             .password("{noop}test123")
+             .roles("EMPLOYEE")
+             .build();
+
+         UserDetails mary = User.builder()
+             .username("mary")
+             .password("{noop}test123")
+             .roles("EMPLOYEE", "MANAGER")
+             .build();
+
+         UserDetails susan = User.builder()
+             .username("susan")
+             .password("{noop}test123")
+             .roles("EMPLOYEE", "MANAGER", "ADMIN")
+             .build();
+
+         return new InMemoryUserDetailsManager(john, mary, susan);
+     }
+
+3. **Using BCrypt for Password Encryption:**
+   - Switch to `BCrypt` for stronger password security.
+   - Example using `BCryptPasswordEncoder`:
+
+     import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+     import org.springframework.security.crypto.password.PasswordEncoder;
+
+     @Bean
+     public PasswordEncoder passwordEncoder() {
+         return new BCryptPasswordEncoder();
+     }
+
+     @Bean
+     public InMemoryUserDetailsManager userDetailsManager(PasswordEncoder passwordEncoder) {
+         UserDetails john = User.builder()
+             .username("john")
+             .password(passwordEncoder.encode("test123"))
+             .roles("EMPLOYEE")
+             .build();
+
+         UserDetails mary = User.builder()
+             .username("mary")
+             .password(passwordEncoder.encode("test123"))
+             .roles("EMPLOYEE", "MANAGER")
+             .build();
+
+         UserDetails susan = User.builder()
+             .username("susan")
+             .password(passwordEncoder.encode("test123"))
+             .roles("EMPLOYEE", "MANAGER", "ADMIN")
+             .build();
+
+         return new InMemoryUserDetailsManager(john, mary, susan);
+     }
+
+### Key Points:
+
+- **Spring Security Configuration:** Use `@Configuration` and `@EnableWebSecurity` to set up security configurations.
+- **In-Memory Users:** Define users, passwords, and roles using `InMemoryUserDetailsManager`.
+- **Password Storage Formats:** Start with `noop` for plain text passwords, then switch to `BCrypt` for encrypted passwords.
+
+This setup allows for basic user authentication and role-based access control in a Spring Boot application. Future videos will cover storing user credentials in a database and encrypting passwords using `BCrypt`.

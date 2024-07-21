@@ -1,0 +1,30 @@
+
+**Introduction to Password Encryption:**
+- **Issue:** Storing passwords in plain text is insecure.
+- **Best Practice:** Encrypt passwords to protect them, especially in production environments.
+- **Example:** Users (John, Mary, Susan) have their passwords encrypted.
+
+**Using bcrypt Algorithm:**
+- **Recommendation:** Spring Security team recommends bcrypt for password encryption.
+- **Features of bcrypt:**
+  - Performs a one-way encrypted hash.
+  - Adds random salt to the password for additional security.
+  - Includes support to defeat brute force attacks.
+- **Resources:**
+  - Background info: [luv2code.com/why-bcrypt](http://luv2code.com/why-bcrypt)
+  - Detailed algorithm analysis: [luv2code.com/bcrypt-wiki-page](http://luv2code.com/bcrypt-wiki-page)
+  - Best practices: [luv2code.com/password-hashing-best-practices](http://luv2code.com/password-hashing-best-practices)
+
+**Generating bcrypt Passwords:**
+- **Options:**
+  1. Use a website utility.
+  2. Write Java code (covered in later videos).
+- **Demo Using Website Utility:**
+  - Go to [luv2code.com/generate-bcrypt-password](http://luv2code.com/generate-bcrypt-password).
+  - Enter plain text password (e.g., test123) and click calculate.
+  - The utility generates an encrypted password.
+  - Note: Multiple runs generate different encrypted passwords due to random salting.
+
+**Key Takeaways:**
+- Encrypting passwords using bcrypt adds a layer of security by making them unreadable even if databases are hacked.
+- Random salting ensures that the same plain text password will result in different encrypted versions upon multiple encryptions.

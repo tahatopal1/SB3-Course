@@ -1,0 +1,82 @@
+### Summary: Spring Boot REST API Security Overview
+
+**Goals:**
+- Secure a Spring Boot REST API.
+- Define users and roles.
+- Protect URLs based on roles.
+- Store users, passwords, and roles in a database (plain text and encrypted).
+
+**Spring Security Model:**
+- Implemented using servlet filters to pre-process and post-process web requests.
+- Filters route requests based on security logic.
+- Can be used declaratively (configuration) or programmatically (custom application code).
+
+**Spring Security in Action:**
+- Web browser attempts to access a protected resource.
+- Spring Security filters intercept the request, check authentication and authorization.
+- If unauthenticated, redirects to login form.
+- Authenticates user based on stored credentials.
+- Checks user’s roles to determine access to the resource.
+- Denies access if unauthorized; grants access if authorized.
+
+**Security Concepts:**
+1. **Authentication:** Verifies user credentials (ID and password) against stored data.
+2. **Authorization:** Checks if authenticated user has the necessary role to access the resource.
+
+**Types of Security:**
+- **Declarative Security:** Defines security constraints in a configuration class, providing separation of concerns.
+- **Programmatic Security:** Allows for custom security logic using Spring Security’s API.
+
+**Enabling Spring Security:**
+1. **Add Dependency:** Edit `pom.xml` to include `spring-boot-starter-security`.
+
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-security</artifactId>
+   </dependency>
+
+2. **Default Behavior:** All endpoints are secured; default username is `user`, and the password is in application logs.
+
+**Customizing Configuration:**
+- Override default username and password in `application.properties`:
+
+  spring.security.user.name=customUser
+  spring.security.user.password=customPassword
+
+**Techniques for Defining Users, Passwords, and Roles:**
+1. **In-Memory Authentication:** Store user credentials directly in the application configuration.
+2. **JDBC Authentication:** Store user credentials in a database.
+3. **LDAP Authentication:** Use LDAP for user credentials.
+4. **Custom Implementations:** Extend Spring Security to support custom authentication and authorization logic.
+
+**Upcoming Topics:**
+- Implementing basic Spring Security.
+- Customizing user authentication.
+- Storing and encrypting passwords in a database.
+- Practical examples of securing a Spring Boot REST API.
+
+### Key Takeaways
+
+- **Spring Security Filters:** They intercept and process web requests for authentication and authorization.
+- **Declarative vs. Programmatic Security:** Declarative for configuration-based security; programmatic for custom logic.
+- **Basic Setup:** Adding `spring-boot-starter-security` secures all endpoints with minimal configuration.
+- **Customizing Security:** User credentials can be customized and stored in various ways, including in-memory and JDBC.
+
+### Practical Example
+
+1. **Add Spring Security Dependency:**
+
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-security</artifactId>
+   </dependency>
+
+2. **Default Security Behavior:**
+   - Accessing any endpoint prompts for login.
+   - Default username is `user`, and the password is in application logs.
+
+3. **Override Defaults in `application.properties`:**
+   spring.security.user.name=admin
+   spring.security.user.password=adminPass
+
+By following these steps, you can secure your Spring Boot REST API, define user roles, and control access to resources based on these roles.

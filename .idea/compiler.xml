@@ -7,9 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="demo (14)" />
+        <module name="demo (12)" />
+        <module name="demo (10)" />
         <module name="demo (5)" />
+        <module name="cruddemo (12)" />
+        <module name="demo (7)" />
+        <module name="cruddemo (14)" />
         <module name="cruddemo (1)" />
         <module name="demo" />
+        <module name="demo (9)" />
+        <module name="cruddemo (16)" />
         <module name="springcoredemo (8)" />
         <module name="cruddemo" />
         <module name="cruddemo (6)" />
@@ -19,7 +27,15 @@
         <module name="springcoredemo (4)" />
         <module name="demo (4)" />
         <module name="springcoredemo (2)" />
+        <module name="cruddemo (11)" />
         <module name="cruddemo (8)" />
+        <module name="demo (15)" />
+        <module name="demo (13)" />
+        <module name="demo (11)" />
+        <module name="demo (6)" />
+        <module name="cruddemo (13)" />
+        <module name="demo (8)" />
+        <module name="cruddemo (15)" />
         <module name="springcoredemo" />
         <module name="cruddemo (2)" />
         <module name="cruddemo (5)" />
@@ -36,12 +52,22 @@
         <module name="springcoredemo (9)" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cruddemo (1) (com.luv2code.springboot)" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cruddemo" options="-parameters" />
       <module name="cruddemo (1)" options="-parameters" />
+      <module name="cruddemo (1) (com.luv2code.springboot)" options="-parameters" />
       <module name="cruddemo (10)" options="-parameters" />
+      <module name="cruddemo (11)" options="-parameters" />
+      <module name="cruddemo (12)" options="-parameters" />
+      <module name="cruddemo (13)" options="-parameters" />
+      <module name="cruddemo (14)" options="-parameters" />
+      <module name="cruddemo (15)" options="-parameters" />
+      <module name="cruddemo (16)" options="-parameters" />
       <module name="cruddemo (2)" options="-parameters" />
       <module name="cruddemo (3)" options="-parameters" />
       <module name="cruddemo (4)" options="-parameters" />
@@ -52,10 +78,20 @@
       <module name="cruddemo (9)" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="demo (1)" options="-parameters" />
+      <module name="demo (10)" options="-parameters" />
+      <module name="demo (11)" options="-parameters" />
+      <module name="demo (12)" options="-parameters" />
+      <module name="demo (13)" options="-parameters" />
+      <module name="demo (14)" options="-parameters" />
+      <module name="demo (15)" options="-parameters" />
       <module name="demo (2)" options="-parameters" />
       <module name="demo (3)" options="-parameters" />
       <module name="demo (4)" options="-parameters" />
       <module name="demo (5)" options="-parameters" />
+      <module name="demo (6)" options="-parameters" />
+      <module name="demo (7)" options="-parameters" />
+      <module name="demo (8)" options="-parameters" />
+      <module name="demo (9)" options="-parameters" />
       <module name="springcoredemo" options="-parameters" />
       <module name="springcoredemo (1)" options="-parameters" />
       <module name="springcoredemo (2)" options="-parameters" />

@@ -1,0 +1,47 @@
+### Thymeleaf with Spring Boot Overview
+
+#### Introduction to Thymeleaf
+- **Thymeleaf** is a Java templating engine used to generate HTML views for web applications.
+    It is an open-source project, detailed at [thymeleaf.org](http://thymeleaf.org).
+- **Usage**: While commonly used with web apps, Thymeleaf is versatile enough for general templating needs beyond web applications.
+- **Independence**: Thymeleaf is a separate project from Spring and can be used without Spring,
+    though they are often used together due to their complementary nature.
+
+#### Pronunciation
+- Pronounced "tymeleaf," with the "H" being silent, similar to words like Thomas and Thailand.
+
+#### Thymeleaf Templates
+- **Definition**: A Thymeleaf template can be an HTML page enhanced with Thymeleaf expressions to include dynamic content.
+- **Functionality**: These expressions can access Java objects, Spring beans, etc.
+
+#### Processing Thymeleaf Templates
+- **Server-Side Processing**: In web applications, Thymeleaf templates are processed on the server. The server-side processing involves:
+  1. The web browser sends a request to a Spring MVC Controller.
+  2. The controller adds data to the model.
+  3. The data is sent to the Thymeleaf template.
+  4. The processed HTML is returned to the web browser.
+
+#### Development Process
+1. **Adding Thymeleaf to Maven POM file**:
+   - Add the dependency for `spring-boot-starter-thymeleaf` in the Maven POM file.
+   - If creating a new project via [start.spring.io](http://start.spring.io), include Thymeleaf in the dependencies.
+   - Spring Boot auto-configures Thymeleaf, requiring no additional setup.
+
+2. **Developing a Spring MVC Controller**:
+   - Use `@Controller` and `@GetMapping` to handle requests.
+   - Add data to the model and return the view name corresponding to the Thymeleaf template.
+
+3. **Creating a Thymeleaf Template**:
+   - Place the Thymeleaf template files in `src/main/resources/templates`.
+   - Use HTML with Thymeleaf expressions (e.g., `th:text`) to display dynamic content.
+   - The data from the model (e.g., `theDate`) is accessed and displayed in the HTML.
+
+#### Example Process
+- **Controller**: Handles the request and prepares the data.
+- **Model**: Passes data to the template.
+- **Template**: Displays data dynamically, such as showing the server time.
+
+#### Additional Thymeleaf Features
+- **Loops and Conditionals**: Support for iteration and conditional rendering.
+- **CSS and JavaScript Integration**: Ability to include and manipulate CSS and JS.
+- **Template Layouts and Fragments**: Reusable components and layout support.

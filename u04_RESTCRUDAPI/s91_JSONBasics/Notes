@@ -1,0 +1,22 @@
+**Introduction to JSON:**
+- JSON stands for JavaScript Object Notation.
+- It's a lightweight data format for storing and exchanging data.
+- JSON is plain text and language-independent, usable with any programming language like Java, C#, and Python.
+
+**JSON Syntax:**
+- JSON objects are defined using curly braces `{}`.
+- Objects contain name-value pairs, delimited by colons `:`.
+- Names are always in double quotes `""`.
+
+**JSON Values:**
+- **Numbers:** No quotes needed.
+- **Strings:** Always in double quotes.
+- **Booleans:** Values can be `true` or `false`.
+- **Nested Objects:** Objects can be nested within each other.
+- **Arrays:** Defined using square brackets `[]`, containing a comma-separated list of items.
+- **Null:** Represents a reference to nothing.
+
+**Examples:**
+- **Object:** `{ "name": "value" }`
+- **Nested Object:** `{ "address": { "street": "123 Main St", "city": "Anytown" } }`
+- **Array:** `{ "languages": ["English", "Spanish"] }`

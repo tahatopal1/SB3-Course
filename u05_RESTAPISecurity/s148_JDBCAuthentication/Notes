@@ -1,0 +1,115 @@
+### Summary: Spring Security with Database Authentication
+
+**Objective:**
+- Transition from hardcoded user accounts to storing user accounts and roles in a database using Spring Security.
+
+**Key Steps:**
+1. **Create SQL Script for Database Tables:**
+2. **Add Database Support in Maven POM File:**
+3. **Create JDBC Properties File:**
+4. **Update Spring Security Configuration:**
+
+### Detailed Steps:
+
+1. **Create SQL Script for Database Tables:**
+   - **Users Table:**
+
+     CREATE TABLE users (
+         username VARCHAR(50) NOT NULL PRIMARY KEY,
+         password VARCHAR(100) NOT NULL,
+         enabled TINYINT NOT NULL
+     );
+
+     - Insert user data:
+
+     INSERT INTO users (username, password, enabled) VALUES
+     ('john', '{noop}test123', 1),
+     ('mary', '{noop}test123', 1),
+     ('susan', '{noop}test123', 1);
+     ```
+   - **Authorities Table:**
+
+     CREATE TABLE authorities (
+         username VARCHAR(50) NOT NULL,
+         authority VARCHAR(50) NOT NULL,
+         PRIMARY KEY (username, authority),
+         CONSTRAINT fk_authorities_users FOREIGN KEY(username) REFERENCES users(username)
+     );
+
+     - Insert role data:
+
+     INSERT INTO authorities (username, authority) VALUES
+     ('john', 'ROLE_EMPLOYEE'),
+     ('mary', 'ROLE_EMPLOYEE'),
+     ('mary', 'ROLE_MANAGER'),
+     ('susan', 'ROLE_EMPLOYEE'),
+     ('susan', 'ROLE_MANAGER'),
+     ('susan', 'ROLE_ADMIN');
+     ```
+
+2. **Add Database Support in Maven POM File:**
+   - Add the MySQL JDBC driver dependency:
+
+     <dependency>
+         <groupId>mysql</groupId>
+         <artifactId>mysql-connector-java</artifactId>
+         <scope>runtime</scope>
+     </dependency>
+
+3. **Create JDBC Properties File:**
+   - Ensure the application properties file (`application.properties` or `application.yml`) contains database connection settings:
+
+     spring.datasource.url=jdbc:mysql://localhost:3306/your_database
+     spring.datasource.username=your_username
+     spring.datasource.password=your_password
+     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+4. **Update Spring Security Configuration:**
+   - Modify the security configuration to use JDBC authentication:
+
+     @Configuration
+     @EnableWebSecurity
+     public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+         @Autowired
+         private DataSource dataSource;
+
+         @Override
+         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+             auth.jdbcAuthentication().dataSource(dataSource);
+         }
+
+         @Override
+         protected void configure(HttpSecurity http) throws Exception {
+             http.authorizeRequests()
+                     .antMatchers("/api/employees").hasRole("EMPLOYEE")
+                     .antMatchers("/api/employees/**").hasRole("EMPLOYEE")
+                     .antMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
+                     .antMatchers(HttpMethod.PUT, "/api/employees").hasRole("MANAGER")
+                     .antMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
+                     .and()
+                     .httpBasic()
+                     .and()
+                     .csrf().disable();
+         }
+     }
+
+### Key Points:
+
+- **Spring Security Database Schema:** Follow Spring Security’s predefined table schemas (`users` and `authorities`).
+- **Password Storage:** Use `{noop}` for plain text passwords initially, and later transition to `BCrypt` for encrypted passwords.
+- **Configuration Simplification:** Leveraging Spring Security’s predefined schemas minimizes the need for custom JDBC code.
+
+### Implementation:
+
+1. **Create Users and Authorities Tables:**
+   - Execute the provided SQL scripts to set up the database tables and insert initial user data.
+
+2. **Configure Database in Spring Boot:**
+   - Ensure the correct database connection settings in the application properties file.
+
+3. **Update Security Configuration:**
+   - Modify the Spring Security configuration to use JDBC authentication.
+
+    By following these steps, you can securely authenticate users and manage their roles using a database,
+leveraging Spring Security’s built-in capabilities for handling JDBC authentication and authorization.

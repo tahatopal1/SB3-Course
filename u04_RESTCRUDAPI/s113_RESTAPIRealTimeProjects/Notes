@@ -1,0 +1,45 @@
+We are examining examples from well-known real-time projects, including PayPal, GitHub, and SalesForce.
+These examples illustrate how larger companies design their APIs, showing the similarities and minor differences compared to our CRM application.
+
+#### PayPal Invoicing API
+
+1. **Overview**: Provides CRUD operations on invoices.
+2. **Endpoints**:
+   - **Create an Invoice**: `POST /invoices`
+   - **List Invoices**: `GET /invoices`
+   - **Retrieve a Specific Invoice**: `GET /invoices/{invoiceId}`
+   - **Update an Invoice**: `PUT /invoices/{invoiceId}`
+   - **Delete an Invoice**: `DELETE /invoices/{invoiceId}`
+3. **Consistency**: Follows standard REST practices using HTTP methods for different operations.
+
+#### GitHub Repositories API
+
+1. **Overview**: Manages GitHub repositories.
+2. **Endpoints**:
+   - **Create a Repository**: `POST /user/repos`
+   - **Delete a Repository**: `DELETE /repos/{owner}/{repo}`
+   - **List Repositories**: `GET /user/repos`
+   - **Retrieve a Specific Repository**: `GET /repos/{owner}/{repo}`
+3. **Path Parameters**: Uses placeholders (e.g., `{owner}` and `{repo}`) to represent dynamic parts of the URL.
+
+#### SalesForce Industries REST API
+
+1. **Overview**: Manages individual records within a CRM context.
+2. **Endpoints**:
+   - **List Individuals**: `GET /individual`
+   - **Retrieve a Specific Individual**: `GET /individual/{individualId}`
+   - **Create an Individual**: `POST /individual`
+   - **Update an Individual**: `PUT /individual/{individualId}`
+3. **Singular Resource Name**: Uses the singular form "individual" instead of the plural "individuals," which is a minor deviation from the common convention.
+
+#### Key Takeaways
+
+1. **Consistency in Design**: These APIs follow consistent patterns using HTTP methods to define actions (CRUD operations) on resources.
+2. **Path Parameters**: Dynamic parts of the URL are often represented as path parameters, indicated by curly braces.
+3. **Naming Conventions**: While the general convention is to use plural forms of resource names, it's not a strict rule, as shown by the SalesForce API example.
+4. **Simplicity and Clarity**: APIs are designed to be intuitive and straightforward, making it easy for clients to understand and use.
+
+#### Conclusion
+
+These real-time API examples reinforce the best practices and principles of REST API design.
+By following these patterns, we can create robust, reusable, and maintainable APIs.

@@ -28,5 +28,21 @@
     <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s83_deletingJPAobjects/cruddemo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s85_deletingallJPAobjects/cruddemo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/u03_hibernateandjpacrud/s86_createdatabasetablefromjavacode/cruddemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u04_RESTCRUDAPI/s101_RestPathVariables/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u04_RESTCRUDAPI/s106_RESTExceptionHandling/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u04_RESTCRUDAPI/s110_RESTGlobalExceptionHandling/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u04_RESTCRUDAPI/s116_RESTCreateProject/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u04_RESTCRUDAPI/s130_SpringDataJPA/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u04_RESTCRUDAPI/s133_SpringDataREST/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u04_RESTCRUDAPI/s136_SpringDataRestConfigAndSorting/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u04_RESTCRUDAPI/s96_SpringBootRestController/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u04_RESTCRUDAPI/s99_SpringBootRESTPOJO/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u05_RESTAPISecurity/s139_RESTAPISecurity/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u05_RESTAPISecurity/s141_RESTAPISecurityConfig/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u05_RESTAPISecurity/s143_URLRestriction/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u05_RESTAPISecurity/s148_JDBCAuthentication/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u05_RESTAPISecurity/s155_JDBCAuthCustomTables/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u05_RESTAPISecurity/s159_SecurityWithJPA/demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/u06_SpringMVC/s160_ThymeleafOverview/demo/src/main/java" charset="UTF-8" />
   </component>
 </project>

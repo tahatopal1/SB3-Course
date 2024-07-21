@@ -1,0 +1,95 @@
+### Summary: Restricting Access Based on Roles in Spring Boot
+
+**Objective:**
+- Restrict REST API endpoints based on user roles using Spring Security.
+
+**Role-Based Endpoint Restrictions:**
+- **Reading all/single employees (`GET /employees` and `GET /employees/{employeeId}`):** Accessible to `employee` role.
+- **Creating/Updating an employee (`POST /employees` and `PUT /employees`):** Accessible to `manager` role.
+- **Deleting an employee (`DELETE /employees/{employeeId}`):** Accessible to `admin` role.
+
+**Implementation Steps:**
+
+1. **Create Security Configuration Class:**
+   - Annotate with `@Configuration` and `@EnableWebSecurity`.
+   - Extend `WebSecurityConfigurerAdapter` to customize security configurations.
+
+2. **Define Endpoint Access Restrictions:**
+   - Use `http.authorizeRequests()` to specify access rules.
+   - Use `requestMatchers` to match paths and HTTP methods.
+   - Use `hasRole` and `hasAnyRole` to specify required roles.
+
+**Example Security Configuration:**
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/api/employees").hasRole("EMPLOYEE")
+                .antMatchers("/api/employees/**").hasRole("EMPLOYEE")
+                .antMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
+                .antMatchers(HttpMethod.PUT, "/api/employees").hasRole("MANAGER")
+                .antMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
+                .and()
+                .httpBasic()
+                .and()
+                .csrf().disable();
+    }
+
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        UserDetails john = User.builder()
+                .username("john")
+                .password("{noop}test123")
+                .roles("EMPLOYEE")
+                .build();
+
+        UserDetails mary = User.builder()
+                .username("mary")
+                .password("{noop}test123")
+                .roles("EMPLOYEE", "MANAGER")
+                .build();
+
+        UserDetails susan = User.builder()
+                .username("susan")
+                .password("{noop}test123")
+                .roles("EMPLOYEE", "MANAGER", "ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(john, mary, susan);
+    }
+}
+
+**Key Methods:**
+- **authorizeRequests()**: Specifies which requests need authorization.
+- **antMatchers()**: Specifies the URL patterns and HTTP methods.
+- **hasRole()**: Specifies the role required to access the URL.
+- **hasAnyRole()**: Specifies multiple roles that can access the URL.
+- **csrf().disable()**: Disables CSRF protection for stateless REST APIs.
+
+**Cross-Site Request Forgery (CSRF):**
+- CSRF protection is important for traditional web applications with forms.
+- For stateless REST APIs (using POST, PUT, DELETE, PATCH), CSRF protection can be disabled.
+- Disable CSRF in Spring Security configuration for REST APIs:
+
+  http.csrf().disable();
+
+
+### Pulling It All Together:
+1. **Define Security Configuration:**
+   - Create a class extending `WebSecurityConfigurerAdapter`.
+   - Override `configure(HttpSecurity http)` to set up role-based access.
+   - Disable CSRF protection for stateless REST APIs.
+
+2. **User Details and Roles:**
+   - Define users and their roles using `InMemoryUserDetailsManager`.
+
+3. **Restrict Endpoints:**
+   - Use `antMatchers` to match specific paths and methods.
+   - Use `hasRole` and `hasAnyRole` to enforce role-based access.
+
+By following these steps, you can effectively secure your REST API endpoints in a Spring Boot application, ensuring that only users with the appropriate roles can access specific operations.

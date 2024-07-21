@@ -1,0 +1,55 @@
+### Summary: Spring Boot REST API Development for Employee Directory
+
+In this video, we introduce the process of developing a Spring Boot REST API for an employee directory system.
+The API will connect to a database and support full CRUD operations.
+
+#### API Requirements
+
+The boss has outlined the following requirements for the employee directory REST API:
+1. **Retrieve a List of Employees**: Allow clients to get a list of all employees.
+2. **Retrieve a Single Employee by ID**: Allow clients to fetch details of a single employee using their ID.
+3. **Add a New Employee**: Enable clients to add a new employee to the directory.
+4. **Update an Existing Employee**: Allow clients to update the details of an existing employee.
+5. **Delete an Employee**: Enable clients to delete an employee from the directory.
+
+These requirements translate into the following CRUD operations:
+- **Create**: `POST /api/employees`
+- **Read All**: `GET /api/employees`
+- **Read One**: `GET /api/employees/{employeeId}`
+- **Update**: `PUT /api/employees/{employeeId}`
+- **Delete**: `DELETE /api/employees/{employeeId}`
+
+#### Development Process
+
+1. **Setup Database Development Environment**:
+   - Configure the database and ensure it's ready for connection.
+
+2. **Create Spring Boot Project**:
+   - Use Spring Initializr to generate the Spring Boot project.
+
+3. **Implement CRUD Operations**:
+   - **List Employees**: Implement the logic to retrieve all employees.
+   - **Get Employee by ID**: Develop functionality to fetch a single employee by their ID.
+   - **Add New Employee**: Create the endpoint to add a new employee.
+   - **Update Employee**: Develop the update functionality for existing employees.
+   - **Delete Employee**: Implement the endpoint to delete an employee.
+
+#### Application Architecture
+
+The architecture of the application is structured as follows:
+
+1. **Employee REST Controller**:
+   - Acts as the entry point for the REST API.
+   - Handles HTTP requests and responses.
+
+2. **Employee Service**:
+   - Contains the business logic for handling employee data.
+   - Communicates between the REST controller and the DAO layer.
+
+3. **Employee DAO (Data Access Object)**:
+   - Responsible for interacting with the database.
+   - Performs CRUD operations on the employee table in the database.
+
+
+This structured approach ensures that we systematically build the API, connecting the front-end REST controller to the back-end database,
+providing a complete and functional employee directory system.

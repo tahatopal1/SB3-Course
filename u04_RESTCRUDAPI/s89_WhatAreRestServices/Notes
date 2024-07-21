@@ -3,7 +3,7 @@
 - Key topics include REST concepts, JSON, HTTP messaging, and using Postman for testing.
 
 **Practical Focus**:
-- The series focuses on practical results and is an introduction to Spring REST development.
+- The series focus on practical results and is an introduction to Spring REST development.
 - For detailed reference, viewers are directed to the Spring Reference Manual.
 
 **Business Problem**:
@@ -31,6 +31,3 @@
 - **Language Independence**: Any programming language can be used to create clients or servers that communicate via REST.
 - **Flexibility**: Multiple types of client applications (e.g., Java, C#, Swift) can access the same REST service.
 - **HTTP-based**: REST APIs use standard HTTP methods, making them accessible and easy to implement.
-
-**Conclusion**:
-- The video emphasizes the flexibility and ease of using REST APIs for developing client applications that interact with external services.

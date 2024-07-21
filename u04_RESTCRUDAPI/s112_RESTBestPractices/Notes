@@ -1,0 +1,55 @@
+#### Key Steps in API Design
+
+1. **Reviewing API Requirements**:
+   - Understanding who will use the API and how they will use it is crucial.
+   - Example requirement: Create a REST API for an Employee Directory system that supports full CRUD (Create, Read, Update, Delete) operations.
+
+2. **Identifying the Main Resource/Entity**:
+   - Determine the most prominent noun in the requirements document, which becomes the main resource.
+   - For this project, the main resource is "employee."
+   - Conventionally, use the plural form of the resource, resulting in endpoints like `/api/employees`.
+
+3. **Assigning Actions Using HTTP Methods**:
+   - Assign HTTP methods to perform actions on the resource:
+     - **POST**: Create a new entity.
+     - **GET**: Read a list of entities or a single entity.
+     - **PUT**: Update an existing entity.
+     - **DELETE**: Delete an existing entity.
+
+#### CRUD Endpoint Examples
+
+1. **Create a New Employee**:
+   - `POST /api/employees`: Adds a new employee.
+   - Send employee data as JSON in the request body.
+
+2. **Read Employees**:
+   - `GET /api/employees`: Retrieves a list of employees.
+   - `GET /api/employees/{employeeId}`: Retrieves a single employee by ID.
+
+3. **Update an Existing Employee**:
+   - `PUT /api/employees/{employeeId}`: Updates an existing employee.
+   - Send updated employee data as JSON in the request body.
+
+4. **Delete an Employee**:
+   - `DELETE /api/employees/{employeeId}`: Deletes an employee by ID.
+
+#### Best Practices and Anti-Patterns
+
+1. **Using HTTP Methods Appropriately**:
+   - Avoid including actions (verbs) in the endpoint URLs. Instead, rely on HTTP methods to signify the action.
+   - Examples of what **not** to do:
+     - `/employeesList`, `/deleteEmployee`, `/addEmployee`, `/updateEmployee`.
+
+2. **Endpoint Structure**:
+   - Keep endpoint URLs clean and focused on the resource name.
+   - Use path variables for specifying specific entities (e.g., `{employeeId}`).
+
+3. **Consistency and Clarity**:
+   - Ensure that the API design is consistent, using the same patterns for similar operations across different resources.
+   - Make use of tools like Postman for testing and providing JSON data for POST and PUT requests.
+
+#### Summary
+
+By adhering to these principles, we ensure a well-designed REST API that is easy to use, maintain, and extend.
+The video emphasizes the importance of thoughtful API design, focusing on clear, consistent endpoint structure and proper use of HTTP methods
+to achieve a clean and efficient RESTful service.
