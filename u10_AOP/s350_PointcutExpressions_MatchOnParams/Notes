@@ -1,0 +1,74 @@
+### AOP Pointcut Expressions
+
+Pointcut expressions are used to specify where advice should be applied in your application.
+They are essentially predicate expressions that match join points (points in the execution flow of the program, such as method calls)
+for the advice to be executed.
+
+### Parameter Matching in Pointcut Expressions
+
+Pointcut expressions allow you to match methods based on their parameters using various patterns and wildcards:
+
+1. **No Arguments:**
+
+   To match a method with no arguments, use empty parentheses `()`. For example, to match `addAccount` methods with no parameters:
+
+   ```java
+   @Before("execution(* addAccount())")
+   ```
+
+   This pointcut expression applies to any `addAccount` method with no arguments.
+
+2. **Single Argument of Any Type:**
+
+   Use `( * )` to match a method with exactly one argument of any type. For example:
+
+   ```java
+   @Before("execution(* addAccount(*))")
+   ```
+
+   This matches any `addAccount` method with one argument of any type.
+
+3. **Specific Argument Type:**
+
+   To match a method with a specific argument type, use the fully qualified class name. For example, to match methods with a single `Account` parameter:
+
+   ```java
+   @Before("execution(* addAccount(com.example.Account))")
+   ```
+
+   This matches `addAccount` methods that take an `Account` object as a parameter.
+
+4. **Zero to Many Arguments:**
+
+   Use `( .. )` to match methods with zero or more arguments of any type. For example:
+
+   ```java
+   @Before("execution(* addAccount(..))")
+   ```
+
+   This matches any `addAccount` method, regardless of the number or type of arguments.
+
+### Matching Methods in a Package
+
+You can also match methods within a specific package using pointcut expressions. For instance, to match any method in the `com.luv2code.aopdemo.dao` package:
+
+```java
+@Before("execution(* com.luv2code.aopdemo.dao.*.*(..))")
+```
+
+- `*` after the package name indicates any class within the package.
+- `*` before the parentheses indicates any method name.
+- `( .. )` indicates any number of parameters.
+
+### Practical Use
+
+Using these patterns, you can apply advice selectively based on method signatures, parameter types, and method locations within your codebase.
+This flexibility allows you to fine-tune where and how your aspects are applied, ensuring that cross-cutting concerns like logging, security,
+or transaction management are applied only where needed.
+
+### Conclusion
+
+Understanding parameter matching in pointcut expressions enhances your ability to apply AOP effectively.
+The instructor will demonstrate these concepts in action by writing code in Eclipse, showing both successful
+and intentional failure cases to illustrate the behavior of pointcut expressions.
+This hands-on approach helps solidify the understanding of AOP and its practical applications.

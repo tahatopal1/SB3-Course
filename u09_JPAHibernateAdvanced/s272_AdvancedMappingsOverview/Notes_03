@@ -1,0 +1,11 @@
+Entity Lifecycle
+
+    Detach: If entity is detached, it is no associated with a Hibernate session.
+
+    Merge: If instance is detached from session, then merge will reattach to session.
+
+    Persist: Transitions new instances to managed state. Next flush / commit will save in db.
+
+    Remove: Transitions managed entity to be removed. Next flush / commit will delete from db.
+
+    Refresh: Reload / sync object with data from db. Prevents stale data.

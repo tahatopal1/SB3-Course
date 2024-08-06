@@ -1,0 +1,38 @@
+### Using @GetMapping and @PostMapping in Spring MVC
+
+In Spring MVC, `@GetMapping` and `@PostMapping` annotations are used to handle GET and POST requests respectively.
+These annotations are specialized versions of `@RequestMapping`, making the code more concise and readable.
+
+#### GET and POST Methods
+
+**GET Method:**
+- **Usage**: Commonly used to retrieve data from the server.
+- **Data in URL**: When a form uses GET, the data is appended to the URL as query parameters.
+- **Visibility**: Data is visible in the URL, making it useful for debugging, bookmarking, and sharing links.
+- **Limitations**: Limited data length (usually up to 1,000 characters depending on the browser).
+
+**POST Method:**
+- **Usage**: Typically used to submit data to be processed to the server.
+- **Data in Body**: Form data is included in the body of the HTTP request, not visible in the URL.
+- **No Data Length Limit**: Can handle large amounts of data and binary data (e.g., file uploads).
+- **Security**: Slightly more secure since data isn't exposed in the URL.
+
+#### Deciding Between GET and POST
+- **GET**:
+  - Best for idempotent operations (e.g., retrieving data).
+  - Useful for debugging due to URL visibility.
+  - Suitable for small amounts of data.
+- **POST**:
+  - Preferred for non-idempotent operations (e.g., submitting forms, uploading files).
+  - Handles large data sizes and binary data.
+  - More secure for sensitive data since it's not exposed in the URL.
+
+
+#### Summary
+- `@GetMapping` and `@PostMapping` provide clear and concise ways to handle GET and POST requests.
+- GET requests append data to the URL and are useful for retrieval operations and debugging.
+- POST requests include data in the request body, suitable for submissions and handling larger or binary data.
+- Choosing between GET and POST depends on the nature of the data and the operation being performed.
+
+These annotations help streamline the development process in Spring MVC, making the code easier to read and maintain.
+If you have any specific questions or need further examples, feel free to ask!

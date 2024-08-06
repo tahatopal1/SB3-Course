@@ -1,0 +1,55 @@
+### Implementing Lazy Loading with JOIN FETCH
+
+To refine the solution for finding an instructor along with their courses, we can use the `JOIN FETCH` technique.
+This approach allows us to fetch the `Instructor` and their `Course` entities in a single query while still using lazy loading for the courses.
+This method combines the benefits of both lazy and eager loading without having to hard-code the fetch type as eager.
+
+**AppDAOImpl Class**:
+```java
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Repository
+public class AppDAOImpl implements AppDAO {
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Override
+    @Transactional
+    public Instructor findInstructorByIdJoinFetch(int id) {
+        TypedQuery<Instructor> query = entityManager.createQuery(
+            "SELECT i FROM Instructor i "
+            + "JOIN FETCH i.courses "
+            + "WHERE i.id = :id", Instructor.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+    }
+
+}
+```
+
+### Explanation
+
+1. **Lazy Loading**: The `Instructor` class uses `FetchType.LAZY` for the `courses` collection.
+This ensures that courses are not loaded until explicitly requested.
+
+2. **JOIN FETCH**: The `findInstructorByIdJoinFetch` method uses a JPQL query with `JOIN FETCH` to retrieve an `Instructor`
+and their associated `Course` entities in a single query. This allows us to override the lazy loading behavior without changing the fetch type configuration.
+
+3. **Flexibility**: By providing both `findInstructorById` and `findInstructorByIdJoinFetch` methods, the application can choose whether
+to fetch courses with the instructor or not, depending on the use case.
+
+### Conclusion
+
+Using `JOIN FETCH` allows you to efficiently load related entities in a single query while maintaining the flexibility of lazy loading.
+This approach optimizes performance and provides greater control over data retrieval.
+
+### References
+
+- [Hibernate Documentation](https://hibernate.org/orm/documentation/5.4/)
+- [Baeldung: Hibernate Fetching Strategies](https://www.baeldung.com/hibernate-fetching-strategies)
+- [Vlad Mihalcea's Blog on Fetching](https://vladmihalcea.com/the-best-way-to-handle-the-lazyinitializationexception/)

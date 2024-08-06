@@ -1,0 +1,121 @@
+### Spring MVC Form Tag and Data Binding
+
+#### Overview
+
+Spring MVC simplifies handling form data with data binding, which automatically sets and retrieves data from Java objects (beans).
+This guide will explain how to build text fields using Spring MVC form tags and demonstrate data binding with a simple example.
+
+#### Step-by-Step Process
+
+1. **Create the Student Class (Bean)**:
+   - This class will hold the form data.
+   - It should have private fields for the form data and corresponding public getter and setter methods.
+
+```java
+public class Student {
+    private String firstName;
+    private String lastName;
+
+    // Getters and setters
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+}
+```
+
+2. **Create the Controller**:
+   - The controller will manage the form, handle form submissions, and manage the data binding process.
+   - Use `@GetMapping` to display the form and `@PostMapping` to process the form submission.
+
+```java
+@Controller
+public class StudentController {
+
+    @GetMapping("/showForm")
+    public String showForm(Model model) {
+        model.addAttribute("student", new Student());
+        return "student-form";
+    }
+
+    @PostMapping("/processForm")
+    public String processForm(@ModelAttribute("student") Student theStudent) {
+        // Log the input data for demonstration
+        System.out.println("Student: " + theStudent.getFirstName() + " " + theStudent.getLastName());
+        return "student-confirmation";
+    }
+}
+```
+
+3. **Create the HTML Form (student-form.html)**:
+   - Use Thymeleaf to create the form with fields for the student's first name and last name.
+   - The `th:object` attribute binds the form to the `student` model attribute.
+   - The `th:field` attribute binds the input fields to the corresponding properties of the `student` object.
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Form</title>
+</head>
+<body>
+    <form th:action="@{/processForm}" th:object="${student}" method="post">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" th:field="*{firstName}" /><br/>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" th:field="*{lastName}" /><br/>
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+</html>
+```
+
+4. **Create the Confirmation Page (student-confirmation.html)**:
+   - Display the data submitted through the form.
+   - Use Thymeleaf to access the `student` object and display its properties.
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Confirmation</title>
+</head>
+<body>
+    <h2>Student is confirmed:</h2>
+    <p>First Name: <span th:text="${student.firstName}"></span></p>
+    <p>Last Name: <span th:text="${student.lastName}"></span></p>
+</body>
+</html>
+```
+
+#### Explanation
+
+1. **Data Binding**:
+   - Spring MVC uses the model attribute (`student`) to bind form data to the corresponding Java object.
+   This binding is facilitated by Thymeleaf, which automatically maps form fields to object properties.
+
+2. **Annotations**:
+   - `@GetMapping` and `@PostMapping`: These annotations handle GET and POST requests.
+   The GET method displays the form, and the POST method processes the form submission.
+   - `@ModelAttribute("student")`: This annotation binds the form data to the `Student` object, making it available for the controller methods.
+
+3. **Thymeleaf Syntax**:
+   - `th:action="@{/processForm}"`: Sets the form's action URL.
+   - `th:object="${student}"`: Binds the form to the `student` object.
+   - `th:field="*{firstName}"`: Binds the input field to the `firstName` property of the `student` object.
+
+#### Summary
+
+This guide covers the basics of setting up a form in Spring MVC using Thymeleaf for data binding.
+The process includes creating a bean, a controller, an HTML form, and a confirmation page.
+This setup allows Spring MVC to manage form data efficiently, making it easy to handle user inputs in web applications.
+
+Feel free to ask if you have any questions or need further examples!

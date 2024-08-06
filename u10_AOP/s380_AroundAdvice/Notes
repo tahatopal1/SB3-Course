@@ -1,0 +1,64 @@
+In Spring AOP, the `@Around` advice is a powerful feature that allows you to execute custom behavior
+both before and after a method invocation on a target object.
+This advice type provides fine-grained control over the method execution and can be used for various purposes
+such as logging, security checks, performance monitoring, and exception handling.
+
+### Role of Proxy Object in `@Around` Advice
+
+The proxy object is crucial in intercepting method calls and applying aspects. Here's how it works in the context of `@Around` advice:
+
+1. **Interception of Method Calls:**
+   - The proxy object intercepts method calls directed at the target object.
+   - It allows the `@Around` advice to wrap around the actual method invocation, providing a way to execute code before and after the method call.
+
+2. **Execution of `@Around` Advice:**
+   - The `@Around` advice has access to a `ProceedingJoinPoint`, which acts as a handle to the intercepted method.
+   - You can use `proceed()` on the `ProceedingJoinPoint` to invoke the target method, allowing you to insert custom logic before and after this invocation.
+
+3. **Control Flow:**
+   - The proxy manages the control flow, ensuring that the `@Around` advice can handle exceptions and control the method’s return value.
+   - This gives you the ability to modify the method's behavior or results dynamically.
+
+### Use Cases for `@Around` Advice
+
+- **Profiling and Monitoring:** Measure the execution time of methods by recording timestamps before and after the method invocation.
+- **Transaction Management:** Start a transaction before the method and commit or rollback after completion.
+- **Security Checks:** Validate permissions or perform security checks before allowing the method to proceed.
+- **Exception Handling:** Catch exceptions, log them, or transform them before propagating them back to the caller.
+
+### Example Code
+
+Here's a simple example demonstrating the use of `@Around` advice for profiling:
+
+```java
+@Aspect
+@Component
+public class ProfilingAspect {
+
+    @Around("execution(* com.example.demo.service.FortuneService.getFortune(..))")
+    public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        long begin = System.currentTimeMillis();
+
+        // Proceed with the method execution
+        Object result = proceedingJoinPoint.proceed();
+
+        long end = System.currentTimeMillis();
+
+        // Calculate the duration and log it
+        long duration = end - begin;
+        System.out.println("Execution time: " + duration + " milliseconds.");
+
+        return result;
+    }
+}
+```
+
+### Key Points
+
+- **ProceedingJoinPoint:** This object allows you to control the execution of the target method. Calling `proceed()` invokes the target method,
+and you can wrap additional logic around this call.
+- **Exception Handling:** You can catch exceptions within the `@Around` advice and decide how to handle them,
+whether by logging, transforming, or rethrowing.
+- **Return Values:** You can modify or completely replace the return value from the target method before returning it to the caller.
+
+The `@Around` advice is highly versatile and can significantly impact how your application behaves, providing a powerful tool for cross-cutting concerns.

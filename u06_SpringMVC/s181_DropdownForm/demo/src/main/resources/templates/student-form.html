@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Registration Form</title>
+</head>
+
+<body>
+    <form th:action="@{/processStudentForm}" th:object="${student}" method="POST">
+        First name: <input type="text" th:field="*{firstName}" />
+        <br><br>
+        First name: <input type="text" th:field="*{lastName}" />
+        <br><br>
+        Country:
+        <select th:field="*{country}">
+<!--            Commented out after we wanted to have the countries data dynamically-->
+<!--            <option th:value="Brazil">Brazil</option>-->
+<!--            <option th:value="France">France</option>-->
+<!--            <option th:value="Germany">Germany</option>-->
+<!--            <option th:value="India">India</option>-->
+            <option th:each="tempCountry: ${countries}"
+                    th:value="${tempCountry}"
+                    th:text="${tempCountry}" />
+        </select>
+        <br><br>
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+
+</html>

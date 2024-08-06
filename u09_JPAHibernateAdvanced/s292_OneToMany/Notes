@@ -1,0 +1,247 @@
+### Implementing a Bidirectional One-to-Many Relationship in Hibernate
+
+In this section, we will create a bidirectional one-to-many relationship between `Instructor` and `Course`.
+This means an `Instructor` can have multiple `Courses`, and each `Course` is associated with one `Instructor`.
+Additionally, we'll ensure that deleting an `Instructor` will not delete the associated `Courses`, and vice versa.
+
+### Database Setup
+
+#### Instructor Table
+No changes are needed if you already have this table from previous examples.
+
+#### Course Table
+
+**SQL for creating the `course` table**:
+```sql
+CREATE TABLE course (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    instructor_id INT,
+    UNIQUE KEY unique_title (title),
+    FOREIGN KEY (instructor_id) REFERENCES instructor(id)
+);
+```
+
+### Entity Classes
+
+#### Course Class
+
+**Course.java**:
+```java
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name = "course")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(exclude = "instructor")
+public class Course {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "title", unique = true)
+    private String title;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "instructor_id")
+    private Instructor insrfftructor;
+
+    public Course(String title) {
+        this.title = title;
+    }
+}
+```
+
+#### Instructor Class
+
+**Instructor.java**:
+```java
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "instructor")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(exclude = "courses")
+public class Instructor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "instructor_detail_id")
+    private InstructorDetail instructorDetail;
+
+    @OneToMany(mappedBy = "instructor",
+               cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Course> courses;
+
+    public Instructor(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public void addCourse(Course course) {
+        if (courses == null) {
+            courses = new ArrayList<>();
+        }
+        courses.add(course);
+        course.setInstructor(this);
+    }
+}
+```
+
+### DAO Layer
+
+**AppDAO Interface**:
+```java
+public interface AppDAO {
+    Instructor findInstructorById(int id);
+    void deleteInstructorById(int id);
+    void deleteInstructorDetailById(int id);
+    InstructorDetail findInstructorDetailById(int id);
+}
+```
+
+**AppDAOImpl Class**:
+```java
+import javax.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Repository
+public class AppDAOImpl implements AppDAO {
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Override
+    @Transactional
+    public Instructor findInstructorById(int id) {
+        return entityManager.find(Instructor.class, id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteInstructorById(int id) {
+        Instructor tempInstructor = entityManager.find(Instructor.class, id);
+        if (tempInstructor != null) {
+            entityManager.remove(tempInstructor);
+        }
+    }
+
+    @Override
+    @Transactional
+    public InstructorDetail findInstructorDetailById(int id) {
+        return entityManager.find(InstructorDetail.class, id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteInstructorDetailById(int id) {
+        InstructorDetail instructorDetail = entityManager.find(InstructorDetail.class, id);
+        if (instructorDetail != null) {
+            instructorDetail.getInstructor().setInstructorDetail(null);
+            entityManager.remove(instructorDetail);
+        }
+    }
+}
+```
+
+### Main Application
+
+**CruddemoApplication.java**:
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CruddemoApplication implements CommandLineRunner {
+
+    @Autowired
+    private AppDAO appDAO;
+
+    public static void main(String[] args) {
+        SpringApplication.run(CruddemoApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        createInstructorWithCourses(appDAO);
+        findInstructorWithCourses(appDAO);
+    }
+
+    private void createInstructorWithCourses(AppDAO appDAO) {
+        Instructor tempInstructor = new Instructor("Susan", "Public", "susan.public@luv2code.com");
+
+        InstructorDetail tempInstructorDetail = new InstructorDetail("http://www.youtube.com", "Video Games");
+
+        tempInstructor.setInstructorDetail(tempInstructorDetail);
+
+        Course tempCourse1 = new Course("Air Guitar - The Ultimate Guide");
+        Course tempCourse2 = new Course("The Pinball Masterclass");
+
+        tempInstructor.addCourse(tempCourse1);
+        tempInstructor.addCourse(tempCourse2);
+
+        appDAO.save(tempInstructor);
+
+        System.out.println("Saved instructor: " + tempInstructor);
+    }
+
+    private void findInstructorWithCourses(AppDAO appDAO) {
+        int theId = 1;  // Change this to the ID you want to retrieve
+        System.out.println("Finding instructor with ID: " + theId);
+        Instructor tempInstructor = appDAO.findInstructorById(theId);
+        System.out.println("Instructor: " + tempInstructor);
+        System.out.println("Courses: " + tempInstructor.getCourses());
+    }
+}
+```
+
+### Summary
+
+In this example, we have set up a bidirectional one-to-many relationship between `Instructor` and `Course`.
+The `Instructor` entity can reference multiple `Course` entities, and each `Course` can reference a single `Instructor`.
+By carefully configuring the cascade types and breaking bidirectional links before deletions, we maintain data integrity and meet specific project
+requirements.
+
+### References
+- [Hibernate Documentation](https://hibernate.org/orm/documentation/)
+- [Baeldung: Guide to Hibernate One-to-Many Mappings](https://www.baeldung.com/hibernate-one-to-many)
+- [Java Persistence API (JPA) Guide](https://www.oracle.com/java/technologies/persistence-jsp.html)

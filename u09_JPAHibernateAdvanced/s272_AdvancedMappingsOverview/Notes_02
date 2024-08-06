@@ -1,0 +1,167 @@
+### Important Database Concepts for Hibernate Advanced Mappings
+
+#### Primary Key
+A primary key is a unique identifier for each row in a database table. It ensures that each record can be uniquely identified.
+
+**Example**:
+```sql
+CREATE TABLE Student (
+    id INT PRIMARY KEY,
+    name VARCHAR(255)
+);
+```
+
+#### Foreign Key
+A foreign key is a field in one table that uniquely identifies a row in another table. It creates a link between the two tables.
+
+**Example**:
+```sql
+CREATE TABLE Student (
+    id INT PRIMARY KEY,
+    name VARCHAR(255)
+);
+
+CREATE TABLE Student_Details (
+    id INT PRIMARY KEY,
+    student_id INT,
+    details VARCHAR(255),
+    FOREIGN KEY (student_id) REFERENCES Student(id)
+);
+```
+
+#### Cascading
+Cascading in Hibernate allows you to apply operations (such as save, delete) to related entities automatically.
+
+- **Cascading Save**: When you save the parent entity, the child entity is also saved automatically.
+- **Cascading Delete**: When you delete the parent entity, the child entity is also deleted.
+
+**Example in Hibernate**:
+```java
+@Entity
+@Table(name = "student")
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_details_id")
+    private StudentDetails studentDetails;
+
+    // Getters and Setters
+}
+```
+
+**Cascading Delete Example**:
+```java
+@Entity
+@Table(name = "student_details")
+public class StudentDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "details")
+    private String details;
+
+    // Getters and Setters
+}
+```
+
+### Eager vs. Lazy Loading
+- **Eager Loading**: Fetches related entities immediately.
+- **Lazy Loading**: Fetches related entities only when they are accessed.
+
+**Example**:
+```java
+@Entity
+@Table(name = "student")
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+    private Set<Course> courses;
+
+    // Getters and Setters
+}
+```
+
+### Unidirectional and Bidirectional Relationships
+
+#### Unidirectional Relationship
+A unidirectional relationship means one entity has a reference to another entity, but not vice versa.
+
+**Example**:
+```java
+@Entity
+@Table(name = "student")
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_details_id")
+    private StudentDetails studentDetails;
+
+    // Getters and Setters
+}
+```
+
+#### Bidirectional Relationship
+A bidirectional relationship means both entities have references to each other.
+
+**Example**:
+```java
+@Entity
+@Table(name = "student")
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    private StudentDetails studentDetails;
+
+    // Getters and Setters
+}
+
+@Entity
+@Table(name = "student_details")
+public class StudentDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "details")
+    private String details;
+
+    @OneToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    // Getters and Setters
+}
+```
+
+### Conclusion
+Understanding primary keys, foreign keys, cascading, and the concepts of eager and lazy loading are fundamental when working with advanced Hibernate mappings. These concepts help model complex relationships and manage data efficiently. Whether to use unidirectional or bidirectional relationships depends on your specific use case and the navigation needs of your application.
+
+### References
+- [Hibernate ORM Documentation](https://hibernate.org/orm/documentation/)
+- [Baeldung on JPA and Hibernate One to One Mapping](https://www.baeldung.com/jpa-one-to-one)
+- [Java Persistence API (JPA) Guide](https://www.oracle.com/java/technologies/persistence-jsp.html)

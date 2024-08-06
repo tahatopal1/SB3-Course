@@ -1,0 +1,62 @@
+Combining pointcuts in Spring AOP allows you to apply advice conditionally based on multiple criteria.
+This is particularly useful when you want to apply advice to methods in a package while excluding certain methods, such as getters and setters.
+Here’s how you can achieve that:
+
+### Steps to Combine Pointcuts
+
+1. **Create Individual Pointcut Declarations**:
+   - Define pointcuts for the different sets of methods you want to target or exclude.
+
+   ```java
+   @Aspect
+   @Component
+   public class DemoLoggingAspect {
+
+       @Pointcut("execution(* com.yourpackage.dao.*.*(..))")
+       private void forDaoPackage() {}
+
+       @Pointcut("execution(* com.yourpackage.dao.*.get*(..))")
+       private void getter() {}
+
+       @Pointcut("execution(* com.yourpackage.dao.*.set*(..))")
+       private void setter() {}
+   }
+   ```
+
+   - The `forDaoPackage` pointcut targets all methods in the `com.yourpackage.dao` package.
+   - The `getter` pointcut targets all getter methods in the package.
+   - The `setter` pointcut targets all setter methods in the package.
+
+2. **Combine Pointcut Declarations**:
+   - Use logical operators to combine the pointcuts, allowing you to include or exclude specific methods.
+
+   ```java
+   @Pointcut("forDaoPackage() && !(getter() || setter())")
+   private void forDaoPackageNoGetterSetter() {}
+   ```
+
+   - This combined pointcut `forDaoPackageNoGetterSetter` includes all methods in the `com.yourpackage.dao` package but excludes getters and setters.
+
+3. **Apply the Combined Pointcut to Advices**:
+   - Use the combined pointcut in your advice annotations to specify the conditions under which the advice should be executed.
+
+   ```java
+   @Before("forDaoPackageNoGetterSetter()")
+   public void beforeAdvice() {
+       log.info("=====>>> Executing @Before advice on DAO package excluding getters/setters");
+   }
+   ```
+
+### Explanation
+
+- **Logical Operators**:
+  - `&&`: Logical AND, meaning both conditions must be true.
+  - `||`: Logical OR, meaning at least one condition must be true.
+  - `!`: Logical NOT, negates the condition following it.
+
+- **Evaluation**:
+  - The expression `forDaoPackage() && !(getter() || setter())` ensures that advice is applied to all methods in the package
+except for methods identified by the `getter` and `setter` pointcuts. This is achieved by combining logical operators to form complex conditional expressions.
+
+By using this approach, you can efficiently manage where your aspects are applied and avoid redundancy in your pointcut expressions.
+This makes your AOP configuration more maintainable and adaptable to changes.

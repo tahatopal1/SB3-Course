@@ -1,0 +1,174 @@
+### Setting Up the One-to-One Relationship
+
+We'll assume we have two tables: `instructor` and `instructor_detail`.
+We'll create corresponding entity classes and set up a one-to-one relationship between them.
+
+#### Database Tables
+
+```sql
+CREATE TABLE instructor (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(50),
+    instructor_detail_id INT,
+    FOREIGN KEY (instructor_detail_id) REFERENCES instructor_detail(id)
+);
+
+CREATE TABLE instructor_detail (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    youtube_channel VARCHAR(100),
+    hobby VARCHAR(50)
+);
+```
+
+#### Entity Classes
+
+**Instructor Class**:
+```java
+import javax.persistence.*;
+
+@Entity
+@Table(name = "instructor")
+public class Instructor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "instructor_detail_id")
+    private InstructorDetail instructorDetail;
+
+    // Constructors, Getters and Setters
+}
+```
+
+**InstructorDetail Class**:
+```java
+import javax.persistence.*;
+
+@Entity
+@Table(name = "instructor_detail")
+public class InstructorDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "youtube_channel")
+    private String youtubeChannel;
+
+    @Column(name = "hobby")
+    private String hobby;
+
+    // Constructors, Getters and Setters
+}
+```
+
+### DAO Implementation
+
+To implement the Data Access Object (DAO) pattern, we'll create an interface and a class to handle database operations.
+
+**AppDAO Interface**:
+```java
+public interface AppDAO {
+    Instructor findInstructorById(int id);
+}
+```
+
+**AppDAOImpl Class**:
+```java
+import javax.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Repository
+public class AppDAOImpl implements AppDAO {
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Override
+    @Transactional
+    public Instructor findInstructorById(int id) {
+        return entityManager.find(Instructor.class, id);
+    }
+}
+```
+
+### Main Application
+
+**CruddemoApplication Class**:
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CruddemoApplication implements CommandLineRunner {
+
+    @Autowired
+    private AppDAO appDAO;
+
+    public static void main(String[] args) {
+        SpringApplication.run(CruddemoApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        findInstructor(appDAO);
+    }
+
+    private void findInstructor(AppDAO appDAO) {
+        int theId = 1;
+        System.out.println("Finding instructor with ID: " + theId);
+        Instructor tempInstructor = appDAO.findInstructorById(theId);
+        System.out.println("Instructor: " + tempInstructor);
+        System.out.println("Instructor Details: " + tempInstructor.getInstructorDetail());
+
+        // Example with another ID
+        theId = 2;
+        System.out.println("Finding instructor with ID: " + theId);
+        tempInstructor = appDAO.findInstructorById(theId);
+        System.out.println("Instructor: " + tempInstructor);
+        System.out.println("Instructor Details: " + tempInstructor.getInstructorDetail());
+    }
+}
+```
+
+### Explanation
+
+1. **Entity Classes**:
+    - `Instructor` and `InstructorDetail` are mapped to their respective tables.
+    - The `@OneToOne` annotation establishes the one-to-one relationship. The `cascade = CascadeType.ALL` ensures that operations like persist,
+        merge, remove, etc., are cascaded to the associated entity.
+    - The `@JoinColumn(name = "instructor_detail_id")` specifies the foreign key column in the `instructor` table.
+
+2. **DAO Layer**:
+    - `AppDAO` is an interface with a method to find an instructor by ID.
+    - `AppDAOImpl` implements this interface and uses `EntityManager` to find the instructor.
+
+3. **Main Application**:
+    - In the `CruddemoApplication` class, we use `CommandLineRunner` to execute code after the Spring Boot application starts.
+    - The `findInstructor` method demonstrates finding an instructor by ID and prints out the instructor's details.
+
+### Fetch Types
+
+- **Eager Fetching**: By default, the `@OneToOne` relationship is fetched eagerly, meaning the associated entity is loaded immediately with the parent entity.
+- **Lazy Fetching**: If you want to load the associated entity on demand, you can set the fetch type to lazy: `@OneToOne(fetch = FetchType.LAZY)`.
+
+### Running the Application
+
+When you run the application, it will fetch and print the details of the instructor and the associated instructor detail based on the ID provided.
+
+This setup demonstrates how to handle a one-to-one mapping and how to find an entity by ID in a Spring Boot application using Hibernate.

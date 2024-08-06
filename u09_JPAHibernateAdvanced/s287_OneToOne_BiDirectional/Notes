@@ -1,0 +1,201 @@
+### Implementing a Bidirectional One-to-One Mapping in Hibernate
+
+### Existing Setup
+
+#### Instructor Entity
+```java
+import javax.persistence.*;
+
+@Entity
+@Table(name = "instructor")
+public class Instructor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "instructor_detail_id")
+    private InstructorDetail instructorDetail;
+
+    // Constructors, Getters, and Setters
+}
+```
+
+#### InstructorDetail Entity (Before Modification)
+```java
+import javax.persistence.*;
+
+@Entity
+@Table(name = "instructor_detail")
+public class InstructorDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "youtube_channel")
+    private String youtubeChannel;
+
+    @Column(name = "hobby")
+    private String hobby;
+
+    // Constructors, Getters, and Setters
+}
+```
+
+### Modifying InstructorDetail for Bidirectional Mapping
+
+1. **Add a Field to Reference Instructor**:
+    - Add a new field `instructor` in `InstructorDetail` to reference the `Instructor`.
+
+```java
+@Entity
+@Table(name = "instructor_detail")
+public class InstructorDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "youtube_channel")
+    private String youtubeChannel;
+
+    @Column(name = "hobby")
+    private String hobby;
+
+    @OneToOne(mappedBy = "instructorDetail", cascade = CascadeType.ALL)
+    private Instructor instructor;
+
+    // Constructors, Getters, and Setters
+}
+```
+
+2. **Update Getter and Setter Methods**:
+    - Add getter and setter methods for the `instructor` field.
+
+```java
+public Instructor getInstructor() {
+    return instructor;
+}
+
+public void setInstructor(Instructor instructor) {
+    this.instructor = instructor;
+}
+```
+
+3. **Understanding the `mappedBy` Attribute**:
+    - The `mappedBy` attribute in the `@OneToOne` annotation indicates that the `InstructorDetail` entity is the inverse side of the relationship,
+        and it is mapped by the `instructorDetail` property in the `Instructor` entity.
+
+### DAO Interface Update
+
+**AppDAO Interface**:
+```java
+public interface AppDAO {
+    Instructor findInstructorById(int id);
+    void deleteInstructorById(int id);
+    InstructorDetail findInstructorDetailById(int id);
+}
+```
+
+### DAO Implementation Update
+
+**AppDAOImpl Class**:
+```java
+import javax.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Repository
+public class AppDAOImpl implements AppDAO {
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Override
+    @Transactional
+    public Instructor findInstructorById(int id) {
+        return entityManager.find(Instructor.class, id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteInstructorById(int id) {
+        Instructor tempInstructor = entityManager.find(Instructor.class, id);
+        if (tempInstructor != null) {
+            entityManager.remove(tempInstructor);
+        }
+    }
+
+    @Override
+    @Transactional
+    public InstructorDetail findInstructorDetailById(int id) {
+        return entityManager.find(InstructorDetail.class, id);
+    }
+}
+```
+
+### Main Application Update
+
+**CruddemoApplication Class**:
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CruddemoApplication implements CommandLineRunner {
+
+    @Autowired
+    private AppDAO appDAO;
+
+    public static void main(String[] args) {
+        SpringApplication.run(CruddemoApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        findInstructorDetail(appDAO);
+    }
+
+    private void findInstructorDetail(AppDAO appDAO) {
+        int theId = 1;  // Change this to the ID you want to retrieve
+        System.out.println("Finding instructor detail with ID: " + theId);
+        InstructorDetail tempInstructorDetail = appDAO.findInstructorDetailById(theId);
+        System.out.println("InstructorDetail: " + tempInstructorDetail);
+        System.out.println("Instructor: " + tempInstructorDetail.getInstructor());
+        System.out.println("Done!");
+    }
+}
+```
+
+### Explanation
+
+1. **Bidirectional Relationship**:
+    - By adding the `instructor` field and the `@OneToOne(mappedBy = "instructorDetail", cascade = CascadeType.ALL)` annotation in `InstructorDetail`
+        , we establish a bidirectional relationship.
+    - The `mappedBy` attribute tells Hibernate that this relationship is managed by the `instructorDetail` field in the `Instructor` entity.
+
+2. **DAO Layer**:
+    - The `AppDAO` interface and `AppDAOImpl` class are updated to include the `findInstructorDetailById` method.
+    - This method uses `entityManager.find` to retrieve the `InstructorDetail` and the associated `Instructor` due to the eager fetching
+        nature of the `@OneToOne` annotation.
+
+3. **Main Application**:
+    - The `CruddemoApplication` class now includes a `findInstructorDetail` method to test the bidirectional relationship.
+    - This method retrieves an `InstructorDetail` by ID and prints both the `InstructorDetail` and the associated `Instructor`.
+
+### Running the Application
+
+When you run the application, it will:
+1. Retrieve the `InstructorDetail` with the specified ID.
+2. Print the `InstructorDetail` and the associated `Instructor` using the bidirectional relationship.

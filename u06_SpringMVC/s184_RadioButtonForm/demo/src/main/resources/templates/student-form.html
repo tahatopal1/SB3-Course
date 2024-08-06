@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Registration Form</title>
+</head>
+
+<body>
+    <form th:action="@{/processStudentForm}" th:object="${student}" method="POST">
+        First name: <input type="text" th:field="*{firstName}" />
+        <br><br>
+
+        First name: <input type="text" th:field="*{lastName}" />
+        <br><br>
+
+        Country:
+        <select th:field="*{country}">
+<!--            Commented out after we wanted to have the countries data dynamically-->
+<!--            <option th:value="Brazil">Brazil</option>-->
+<!--            <option th:value="France">France</option>-->
+<!--            <option th:value="Germany">Germany</option>-->
+<!--            <option th:value="India">India</option>-->
+            <option th:each="tempCountry: ${countries}"
+                    th:value="${tempCountry}"
+                    th:text="${tempCountry}" />
+        </select>
+        <br><br>
+
+        Favorite Programming Language:
+<!--            Commented out after we wanted to have the countries data dynamically-->
+<!--        <input type="radio" th:field="*{favoriteLanguage}" th:value="Go">Go</input>-->
+<!--        <input type="radio" th:field="*{favoriteLanguage}" th:value="Java">Java</input>-->
+<!--        <input type="radio" th:field="*{favoriteLanguage}" th:value="Python">Python</input>-->
+        <input type="radio" th:field="*{favoriteLanguage}"
+               th:each="tempLang: ${languages}"
+               th:value="${tempLang}"
+               th:text="${tempLang}" >
+        <br><br>
+
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+
+</html>

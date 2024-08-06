@@ -1,0 +1,41 @@
+### Behind-the-Scenes Tour of Spring MVC
+
+#### Components of a Spring MVC Application
+- **Webpages**: These lay out the UI components.
+- **Spring Beans**: Handle control and services.
+- **Spring Configuration**: Can be done using XML, Annotations, or pure Java.
+
+#### How Spring MVC Works
+- **Front Controller (DispatcherServlet)**:
+  - **Incoming Request**: Starts with a request to the front controller, known as the DispatcherServlet.
+  - **Role**: Delegates requests to other components like Model, View, and Controller.
+  - **Pre-Built**: Part of the Spring Framework, no need to create it manually.
+
+#### Detailed Breakdown
+1. **Controller**:
+   - **Function**: Contains business logic to handle requests.
+   - **Operations**: Processes data, handles form submissions, interacts with databases or web services, and places data into the Model.
+2. **Model**:
+   - **Purpose**: Acts as a container for data.
+   - **Usage**: Holds data retrieved from various sources like databases, web services, or Spring beans.
+   - **Flow**: Data in the Model is passed to the View template for rendering.
+3. **View Template**:
+   - **Common Template**: Thymeleaf is a frequently used template engine.
+   - **Function**: Renders Model data into HTML to be displayed to the user.
+   - **Flexibility**: Spring MVC supports other view templates like Groovy, Velocity, and Freemarker.
+
+#### Example Workflow
+1. **Request Handling**:
+   - The browser sends a request to the DispatcherServlet.
+   - DispatcherServlet forwards the request to a specific Controller.
+2. **Data Processing**:
+   - The Controller processes the request, interacts with the Model to store or retrieve data.
+   - The Model acts as a data container, passing information to the View.
+3. **View Rendering**:
+   - The View template (e.g., Thymeleaf) uses the Model data to generate an HTML response.
+   - The HTML response is sent back to the browser for the user to view.
+
+#### Key Points
+- **Controller**: Custom code to handle business logic and process requests.
+- **Model**: Container for data, facilitating data transfer between Controller and View.
+- **View**: Template engine (e.g., Thymeleaf) that renders data into HTML.

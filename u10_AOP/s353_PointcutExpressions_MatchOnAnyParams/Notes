@@ -1,0 +1,40 @@
+When dealing with AOP (Aspect-Oriented Programming) pointcut expressions in Spring, it is crucial to ensure that your expressions are not too broad.
+A broad pointcut expression can inadvertently match methods from frameworks or libraries that your application does not intend to affect,
+leading to unexpected behavior or conflicts.
+
+### Key Points from the Video:
+
+1. **Using Wildcards in Pointcuts**: 
+   - When using pointcut expressions, wildcards such as `..` can match methods with any number of parameters.
+   - The expression `execution(* add*(..))` matches any method that starts with "add" and can have any return type and any number of parameters.
+
+2. **Potential Conflicts**: 
+   - Using broad pointcut expressions can lead to conflicts, especially if new frameworks or libraries introduce methods that match the wildcard pattern.
+   - This can cause issues such as the `mbeanExporter` error when using IntelliJ Ultimate, due to conflicts with Spring Boot's JMX auto-configuration.
+
+3. **Narrowing Pointcuts**:
+   - To avoid such conflicts, it's advisable to narrow your pointcut expressions to target only your application's packages.
+   - For example, you can limit the scope of your pointcut by specifying the package: `execution(* com.luv2code..add*(..))`.
+   - This ensures that the advice only applies to methods within the specified package, reducing the risk of unintended matches.
+
+### Example of a Narrowed Pointcut:
+
+Here's how you can modify your pointcut expression to be more specific:
+
+```java
+@Before("execution(* com.yourcompany.yourapp..add*(..))")
+public void beforeAddMethodAdvice() {
+    log.info("=====>>> Executing @Before advice on add method in the specified package");
+}
+```
+
+### Recommendations:
+
+- **Be Specific**: Always try to be as specific as possible with your pointcut expressions to avoid capturing unwanted method calls.
+- **Regularly Review**: As your application grows or integrates new libraries, regularly review your pointcut expressions to ensure they still
+target the intended methods.
+- **Use Package Scoping**: Limit your pointcuts to your application’s packages, especially when using broad patterns like wildcards.
+
+By following these practices, you can harness the power of AOP without encountering the pitfalls of overly broad pointcut expressions.
+If you encounter specific errors or need further debugging, checking the context in which the advice is applied
+and ensuring that no unexpected classes are being proxied will be helpful.

@@ -1,0 +1,188 @@
+### Hibernate Advanced Mappings Overview
+
+Hibernate offers advanced mapping techniques to handle complex relationships between database tables. These mappings help model real-world relationships more accurately in your Java applications. Here, we'll cover One-to-One, One-to-Many, Many-to-One, and Many-to-Many mappings.
+
+#### 1. One-to-One Mapping
+
+A One-to-One relationship means that a row in one table is linked to exactly one row in another table.
+
+**Example**: An `Instructor` entity linked to an `InstructorDetail` entity.
+
+**Entities**:
+
+**Instructor Class**:
+```java
+@Entity
+@Table(name = "instructor")
+public class Instructor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "instructor_detail_id")
+    private InstructorDetail instructorDetail;
+
+    // Getters and Setters
+}
+```
+
+**InstructorDetail Class**:
+```java
+@Entity
+@Table(name = "instructor_detail")
+public class InstructorDetail {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "youtube_channel")
+    private String youtubeChannel;
+
+    @Column(name = "hobby")
+    private String hobby;
+
+    // Getters and Setters
+}
+```
+
+#### 2. One-to-Many and Many-to-One Mapping
+
+In a One-to-Many relationship, one entity is related to multiple instances of another entity. Conversely, in a Many-to-One relationship, multiple instances of one entity relate to a single instance of another entity.
+
+**Example**: An `Instructor` can have multiple `Courses`.
+
+**Entities**:
+
+**Instructor Class**:
+```java
+@Entity
+@Table(name = "instructor")
+public class Instructor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
+    private List<Course> courses;
+
+    // Getters and Setters
+}
+```
+
+**Course Class**:
+```java
+@Entity
+@Table(name = "course")
+public class Course {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "title")
+    private String title;
+
+    @ManyToOne
+    @JoinColumn(name = "instructor_id")
+    private Instructor instructor;
+
+    // Getters and Setters
+}
+```
+
+#### 3. Many-to-Many Mapping
+
+A Many-to-Many relationship occurs when multiple instances of one entity relate to multiple instances of another entity.
+
+**Example**: A `Course` can have many `Students`, and a `Student` can enroll in many `Courses`.
+
+**Entities**:
+
+**Student Class**:
+```java
+@Entity
+@Table(name = "student")
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+    @JoinTable(
+        name = "course_student",
+        joinColumns = @JoinColumn(name = "student_id"),
+        inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> courses;
+
+    // Getters and Setters
+}
+```
+
+**Course Class**:
+```java
+@Entity
+@Table(name = "course")
+public class Course {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "title")
+    private String title;
+
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students;
+
+    // Getters and Setters
+}
+```
+
+### Summary
+
+- **One-to-One**: Use `@OneToOne` and `@JoinColumn` annotations.
+- **One-to-Many**: Use `@OneToMany` and `@ManyToOne` annotations with `mappedBy` and `@JoinColumn`.
+- **Many-to-Many**: Use `@ManyToMany` with `@JoinTable` to define the join table and its join columns.
+
+These advanced mappings help in modeling complex relationships in your database schema and make your application data structure more representative of real-world scenarios.
+
+### References
+- [Hibernate ORM Documentation](https://hibernate.org/orm/documentation/)
+- [Baeldung Hibernate Relationships](https://www.baeldung.com/hibernate-one-to-many)
+- [Java Persistence API (JPA) Guide](https://www.oracle.com/java/technologies/persistence-jsp.html)

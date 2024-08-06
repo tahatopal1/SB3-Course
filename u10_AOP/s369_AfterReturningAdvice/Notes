@@ -1,0 +1,80 @@
+The `@AfterReturning` advice in Spring AOP is used to execute custom behavior after a method completes successfully and returns a result.
+This advice allows you to access and optionally modify the returned data before it is handed back to the caller. Here's how you can implement it:
+
+### Step-by-Step Implementation of `@AfterReturning`
+
+#### Step 1: Define the Aspect
+
+First, you need to define an aspect class where you'll implement the `@AfterReturning` advice.
+
+```java
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Aspect
+@Component
+public class MyDemoLoggingAspect {
+
+    // Define the after returning advice
+    @AfterReturning(
+        pointcut = "execution(* com.example.demo.dao.AccountDAO.findAccounts(..))",
+        returning = "result")
+    public void afterReturningFindAccountsAdvice(JoinPoint theJoinPoint, List<Account> result) {
+
+        // Display the method we are advising on
+        String method = theJoinPoint.getSignature().toShortString();
+        System.out.println("Executing @AfterReturning on method: " + method);
+
+        // Display the returned results
+        System.out.println("Result: " + result);
+
+        // Modify the data if needed
+        convertAccountNamesToUpperCase(result);
+    }
+
+    private void convertAccountNamesToUpperCase(List<Account> result) {
+        for (Account tempAccount : result) {
+            String theUpperName = tempAccount.getName().toUpperCase();
+            tempAccount.setName(theUpperName);
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- **Pointcut Definition:** The `pointcut` element specifies which methods to intercept. In this example,
+it intercepts the `findAccounts` method in the `AccountDAO` class.
+
+- **Returning Clause:** The `returning` element specifies the name of the parameter that will hold the method's return value.
+This parameter must match one of the method parameters of the advice.
+
+- **Access and Modify Result:** Inside the advice method, you can access the return value (in this case, a `List<Account>`)
+and perform operations like logging or modifying the data.
+
+#### Step 2: Apply the Aspect
+
+Ensure that the aspect is recognized by Spring by annotating it with `@Component` and including it in your application's configuration.
+
+### Use Cases for `@AfterReturning`
+
+- **Logging:** Record the results of a method call for auditing or debugging.
+- **Data Modification:** Adjust the returned data, such as converting strings to uppercase or filtering results.
+- **Analytics:** Gather data on method outcomes to analyze application behavior or performance.
+
+### Considerations
+
+- **Execution Context:** `@AfterReturning` advice only runs after a method successfully completes. If an exception is thrown, this advice will not execute.
+- **Data Consistency:** Be cautious when modifying the returned data, as it may affect other parts of the application that rely on the original data.
+
+### Example Scenario
+
+Suppose you have an `AccountDAO` class with a method `findAccounts` that retrieves a list of accounts. Using `@AfterReturning`,
+you can log the retrieved accounts and convert their names to uppercase before they are returned to the caller.
+
+This advice is particularly useful for implementing cross-cutting concerns, such as logging, transaction management, or enforcing security checks,
+without cluttering the core business logic with these concerns.

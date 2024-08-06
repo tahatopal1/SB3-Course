@@ -1,0 +1,153 @@
+### Deleting an Entity with One-to-One Mapping in Hibernate
+
+In this section, we'll cover how to delete an entity in a one-to-one relationship using Hibernate.
+We'll walk through the code required to achieve this, ensuring that the associated entity is also deleted due to the cascading behavior
+set by `CascadeType.ALL`.
+
+### Entities Setup
+
+#### Instructor Class
+```java
+import javax.persistence.*;
+
+@Entity
+@Table(name = "instructor")
+public class Instructor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "instructor_detail_id")
+    private InstructorDetail instructorDetail;
+
+    // Constructors, Getters and Setters
+}
+```
+
+#### InstructorDetail Class
+```java
+import javax.persistence.*;
+
+@Entity
+@Table(name = "instructor_detail")
+public class InstructorDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "youtube_channel")
+    private String youtubeChannel;
+
+    @Column(name = "hobby")
+    private String hobby;
+
+    // Constructors, Getters and Setters
+}
+```
+
+### DAO Interface
+
+**AppDAO Interface**:
+```java
+public interface AppDAO {
+    Instructor findInstructorById(int id);
+    void deleteInstructorById(int id);
+}
+```
+
+### DAO Implementation
+
+**AppDAOImpl Class**:
+```java
+import javax.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Repository
+public class AppDAOImpl implements AppDAO {
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Override
+    @Transactional
+    public Instructor findInstructorById(int id) {
+        return entityManager.find(Instructor.class, id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteInstructorById(int id) {
+        Instructor tempInstructor = entityManager.find(Instructor.class, id);
+        if (tempInstructor != null) {
+            entityManager.remove(tempInstructor);
+        }
+    }
+}
+```
+
+### Main Application
+
+**CruddemoApplication Class**:
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CruddemoApplication implements CommandLineRunner {
+
+    @Autowired
+    private AppDAO appDAO;
+
+    public static void main(String[] args) {
+        SpringApplication.run(CruddemoApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        deleteInstructor(appDAO);
+    }
+
+    private void deleteInstructor(AppDAO appDAO) {
+        int theId = 1;  // Change this to the ID you want to delete
+        System.out.println("Deleting instructor with ID: " + theId);
+        appDAO.deleteInstructorById(theId);
+        System.out.println("Done!");
+    }
+}
+```
+
+### Explanation
+
+1. **Entity Setup**:
+   - `Instructor` and `InstructorDetail` entities are set up with a one-to-one relationship.
+   - The `CascadeType.ALL` ensures that any operation (save, delete, etc.) performed on `Instructor` will also be cascaded to `InstructorDetail`.
+
+2. **DAO Layer**:
+   - The `AppDAO` interface includes a method `deleteInstructorById` to delete an instructor by ID.
+   - `AppDAOImpl` implements this interface and uses `EntityManager` to find and delete the instructor.
+    The `@Transactional` annotation ensures that the operation is performed within a transaction.
+
+3. **Main Application**:
+   - The `CruddemoApplication` class uses `CommandLineRunner` to execute the delete operation after the Spring Boot application starts.
+   - The `deleteInstructor` method demonstrates deleting an instructor by ID and prints out confirmation messages.
+
+### Running the Application
+
+When you run the application, it will:
+1. Delete the instructor with the specified ID.
+2. Because of `CascadeType.ALL`, it will also delete the associated `InstructorDetail` entity.
+3. Print out the confirmation messages indicating the deletion process.

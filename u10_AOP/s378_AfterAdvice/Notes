@@ -1,0 +1,55 @@
+The `@After` advice in Spring AOP is used to execute code after a method has completed, regardless of its outcome.
+This is similar to the `finally` block in a `try-catch-finally` structure in Java.
+The proxy object plays a key role in this process by intercepting method calls to ensure that the `@After` advice is executed correctly.
+
+### Role of Proxy Object for `@After` Advices
+
+1. **Interception of Method Calls:**
+   - The proxy object is a wrapper around the target object, created by Spring AOP at runtime.
+   - It intercepts method calls to the target object, allowing the framework to apply aspects such as `@After` advice.
+
+2. **Execution of `@After` Advice:**
+   - After intercepting the method call, the proxy delegates the call to the target method.
+   - Once the target method completes, the proxy ensures that the `@After` advice is executed.
+   - This happens regardless of whether the method completes successfully or throws an exception.
+
+3. **Consistent Execution:**
+   - The proxy guarantees that the `@After` advice runs consistently after the method execution, ensuring that any cleanup
+or logging operations are always performed.
+
+4. **Control Flow:**
+   - The proxy handles the control flow by managing the invocation sequence of the method and the advice.
+   - It ensures that after the `@After` advice executes, control is returned back to the main application
+   with either the method’s return value or the exception.
+
+### Use Cases for `@After` Advice
+
+- **Logging and Auditing:** Capture information about method execution, such as logging method completion times or auditing actions performed within methods.
+- **Resource Cleanup:** Release resources or perform other cleanup activities that must be done regardless of method success or failure.
+- **Transaction Management:** Commit or rollback transactions in the context of a larger transactional process.
+
+### Example Code
+
+Here’s an example of how `@After` advice is typically implemented in a Spring AOP aspect:
+
+```java
+@Aspect
+@Component
+public class MyDemoLoggingAspect {
+
+    @After("execution(* com.example.demo.dao.AccountDAO.findAccounts(..))")
+    public void afterFinallyAdvice(JoinPoint theJoinPoint) {
+        System.out.println("Executing @After (finally) advice on method: " + theJoinPoint.getSignature().toShortString());
+    }
+}
+```
+
+### Tips for Using `@After` Advice
+
+- **No Access to Exception:** The `@After` advice does not provide access to the exception object. If you need to handle exceptions specifically,
+use `@AfterThrowing`.
+- **Independent of Outcome:** The advice should not rely on the method’s success or failure. It should be able to run in any case.
+- **Suitable for Logging:** Use `@After` for tasks that need to be executed irrespective of the method's result, such as logging or cleanup.
+
+The proxy object ensures that the `@After` advice is reliably executed after the target method, providing a consistent mechanism
+for managing cross-cutting concerns in a Spring application.

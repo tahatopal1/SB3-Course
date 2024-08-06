@@ -1,0 +1,103 @@
+In Spring AOP, controlling the order of aspect execution can be important when you have multiple aspects matching the same join point,
+and you need to specify which one should run first. You can achieve this using the `@Order` annotation in conjunction with the `@Aspect` annotation.
+Here's a step-by-step guide on how to do this:
+
+### Step-by-Step Process
+
+#### Step 1: Refactor Code into Separate Aspects
+
+Instead of having all advices in a single aspect, break them up into separate classes. This allows you to assign an order to each aspect.
+
+**Example:**
+
+```java
+@Aspect
+@Component
+public class MyLoggingDemoAspect {
+    @Before("execution(* com.example.demo.dao.*.*(..))")
+    public void beforeAddAccountAdvice() {
+        System.out.println("Executing @Before advice on addAccount()");
+    }
+}
+```
+
+```java
+@Aspect
+@Component
+public class MyApiAnalyticsAspect {
+    @Before("execution(* com.example.demo.dao.*.*(..))")
+    public void performAPIAnalyticsAdvice() {
+        System.out.println("Performing API Analytics");
+    }
+}
+```
+
+```java
+@Aspect
+@Component
+public class MyCloudLogAspect {
+    @Before("execution(* com.example.demo.dao.*.*(..))")
+    public void logToCloudAdvice() {
+        System.out.println("Logging to Cloud");
+    }
+}
+```
+
+#### Step 2: Use the `@Order` Annotation
+
+Assign an order to each aspect using the `@Order` annotation. Lower numbers indicate higher precedence.
+
+**Example:**
+
+```java
+@Aspect
+@Component
+@Order(1)
+public class MyCloudLogAspect {
+    @Before("execution(* com.example.demo.dao.*.*(..))")
+    public void logToCloudAdvice() {
+        System.out.println("Logging to Cloud");
+    }
+}
+```
+
+```java
+@Aspect
+@Component
+@Order(2)
+public class MyLoggingDemoAspect {
+    @Before("execution(* com.example.demo.dao.*.*(..))")
+    public void beforeAddAccountAdvice() {
+        System.out.println("Executing @Before advice on addAccount()");
+    }
+}
+```
+
+```java
+@Aspect
+@Component
+@Order(3)
+public class MyApiAnalyticsAspect {
+    @Before("execution(* com.example.demo.dao.*.*(..))")
+    public void performAPIAnalyticsAdvice() {
+        System.out.println("Performing API Analytics");
+    }
+}
+```
+
+#### Step 3: Understand the Order Execution
+
+- The aspect with `@Order(1)` will be executed first.
+- The aspect with `@Order(2)` will be executed second.
+- The aspect with `@Order(3)` will be executed last.
+
+#### Additional Considerations
+
+- **Non-Consecutive Orders:** The order numbers do not have to be consecutive.
+For example, you can have orders like `@Order(1)`, `@Order(10)`, and `@Order(20)`.
+- **Negative Orders:** You can use negative numbers to prioritize certain aspects even more.
+- **Same Order:** If two aspects have the same order, their execution order is undefined relative to each other.
+However, they will execute in order with respect to other aspects.
+
+By using the `@Order` annotation, you can have fine-grained control over the execution order of your aspects,
+ensuring that they are applied in the correct sequence as per your application logic.

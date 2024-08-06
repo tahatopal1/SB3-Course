@@ -1,0 +1,40 @@
+### Spring MVC Form Validation with Bean Validation API
+
+#### Introduction to Validation
+
+Validation is crucial for ensuring the integrity and correctness of user input in web forms.
+Common validation requirements include checking for required fields, number ranges, formats (e.g., postal codes), and custom business rules.
+
+#### Bean Validation API
+
+Java's Bean Validation API (part of JSR 380) provides a standardized way to handle validation.
+Spring Boot and Thymeleaf integrate seamlessly with this API, allowing for easy setup and use.
+The homepage for the Bean Validation API contains documentation and resources for deeper understanding:
+    [Bean Validation API](https://beanvalidation.org/).
+
+#### Common Validation Annotations
+
+1. **@NotNull**: Ensures the field is not null.
+2. **@Min(value)**: Validates that the number is no less than the specified value.
+3. **@Max(value)**: Validates that the number does not exceed the specified value.
+4. **@Size(min, max)**: Validates that the size of the field is within the specified range.
+5. **@Pattern(regexp)**: Validates that the field matches the given regular expression.
+6. **@Future**: Ensures the date is in the future.
+7. **@Past**: Ensures the date is in the past.
+
+#### Step-by-Step Roadmap
+
+1. **Set Up Development Environment**:
+   - Ensure you have Spring Boot and Thymeleaf dependencies in your project.
+
+2. **Required Field Validation**:
+   - Use the `@NotNull` or `@NotEmpty` annotations.
+
+3. **Number Range Validation**:
+   - Use `@Min` and `@Max` annotations to specify valid ranges for numeric fields.
+
+4. **Regular Expression Validation**:
+   - Use `@Pattern` to enforce format rules, such as postal codes or phone numbers.
+
+5. **Custom Validation**:
+   - Create custom annotations and validators for specific business rules.

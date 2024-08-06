@@ -1,0 +1,175 @@
+### Example of a Bidirectional `@ManyToMany` Relationship with a Join Table
+
+In a `@ManyToMany` relationship, we need to use a join table to maintain the associations between the entities.
+For instance, let's say we have `Course` and `Student` entities where a course can have many students, and a student can be enrolled in many courses.
+We'll use a join table called `course_student` to maintain these relationships.
+
+### Step-by-Step Implementation
+
+#### 1. Define Database Tables
+
+**SQL Script to create the tables:**
+
+```sql
+CREATE SCHEMA IF NOT EXISTS `hb-04-many-to-many`;
+USE `hb-04-many-to-many`;
+
+CREATE TABLE `course` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(128) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `TITLE_UNIQUE` (`title`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `student` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `first_name` VARCHAR(45) DEFAULT NULL,
+    `last_name` VARCHAR(45) DEFAULT NULL,
+    `email` VARCHAR(45) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `course_student` (
+    `course_id` INT NOT NULL,
+    `student_id` INT NOT NULL,
+    PRIMARY KEY (`course_id`, `student_id`),
+    KEY `course_id_idx` (`course_id`),
+    KEY `student_id_idx` (`student_id`),
+    CONSTRAINT `course_fk` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `student_fk` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+```
+
+#### 2. Create Entity Classes
+
+**Course Entity**:
+
+```java
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "course")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(exclude = "students")
+public class Course {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "title")
+    private String title;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(
+        name = "course_student",
+        joinColumns = @JoinColumn(name = "course_id"),
+        inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private List<Student> students = new ArrayList<>();
+
+    public Course(String title) {
+        this.title = title;
+    }
+
+    public void addStudent(Student student) {
+        if (students == null) {
+            students = new ArrayList<>();
+        }
+        students.add(student);
+    }
+}
+```
+
+**Student Entity**:
+
+```java
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "student")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(exclude = "courses")
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @ManyToMany(mappedBy = "students", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                                                  CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Course> courses = new ArrayList<>();
+
+    public Student(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public void addCourse(Course course) {
+        if (courses == null) {
+            courses = new ArrayList<>();
+        }
+        courses.add(course);
+    }
+}
+```
+
+### Explanation:
+
+1. **Join Table**: The join table `course_student` maintains the relationships between `Course` and `Student`.
+It has two columns: `course_id` and `student_id`, both of which are foreign keys referencing the `Course` and `Student` tables, respectively.
+
+2. **Entity Classes**:
+   - **Course**:
+     - The `@ManyToMany` annotation specifies that a course can have many students.
+     - The `@JoinTable` annotation specifies the join table (`course_student`) and the join columns.
+     - `addStudent` method helps to add a student to the course.
+
+   - **Student**:
+     - The `@ManyToMany` annotation with `mappedBy` specifies that the `Student` entity is the inverse side of the relationship.
+     - `addCourse` method helps to add a course to the student.
+
+### Summary:
+- The `@ManyToMany` annotation is used to create many-to-many relationships between entities.
+- The `@JoinTable` annotation specifies the join table and join columns.
+- In a bidirectional relationship, one side uses `mappedBy` to indicate it is the inverse side of the relationship.
+
+### References:
+- [Hibernate Documentation](https://hibernate.org/orm/documentation/)
+- [Baeldung: Hibernate Many-to-Many](https://www.baeldung.com/hibernate-many-to-many)
+- [Java Persistence API (JPA) Specification](https://javaee.github.io/javaee-spec/javadocs/javax/persistence/package-summary.html)

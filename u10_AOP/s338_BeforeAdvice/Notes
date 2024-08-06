@@ -1,0 +1,58 @@
+### Key Concepts of `@Before` Advice
+
+1. **`@Before` Advice:**
+   - The `@Before` advice allows you to execute custom logic before a method is invoked. It's typically used for tasks like logging,
+security checks, or starting transactions.
+
+2. **Use Cases:**
+   - **Logging:** Record method entry points for auditing or debugging purposes.
+   - **Security:** Perform security checks or validations before executing the method logic.
+   - **Transactions:** Start transactions before a business method executes, which can then be committed or rolled back after the method completes.
+   - **Audit Logging:** Capture details like who invoked the method, what parameters were used, and when the method was called.
+   - **API Management:** Monitor and analyze API usage, such as counting how many times a method is called and who is calling it.
+
+3. **Example Scenario:**
+   - The instructor describes a scenario where a main application calls a `TargetObject` (e.g., `AccountDAO`).
+   - The `@Before` advice is used to execute a custom logging method before the `TargetObject.doSomeStuff` method is executed.
+   - This advice is a cross-cutting concern, meaning it applies across various parts of an application without modifying the business logic itself.
+
+### How `@Before` Advice Works
+
+- **Main Application:** The client application or component making the call.
+- **Target Object:** The object containing the method you want to intercept (e.g., `AccountDAO`).
+- **Proxy:** Spring AOP creates a proxy for the target object. The proxy intercepts the calls to the target object, allowing the advice to be executed.
+- **Aspect:** Contains the advice code. In this case, it's the `@Before` advice that executes before the specified method on the target object.
+
+### Setting Up `@Before` Advice in Spring AOP
+
+To use `@Before` advice, you would typically:
+
+1. **Define an Aspect Class:**
+   - Use the `@Aspect` annotation to indicate that this is an aspect.
+
+2. **Define the `@Before` Advice:**
+   - Use the `@Before` annotation to specify the pointcut expression, which identifies the join points where the advice should be applied.
+   - Implement the logic that you want to run before the method execution.
+
+3. **Configure Spring AOP:**
+   - Ensure that your application is configured to support Spring AOP, typically by enabling AspectJ proxy support.
+
+Here's a simplified example:
+
+```java
+@Aspect
+@Component
+public class LoggingAspect {
+
+    @Before("execution(* com.example.demo.dao.AccountDAO.addAccount(..))")
+    public void beforeAddAccountAdvice() {
+        System.out.println("Executing @Before advice on addAccount()");
+    }
+}
+```
+
+### Conclusion
+
+The `@Before` advice is a powerful way to insert cross-cutting logic into your application without tangling it with your business logic.
+It provides a clean and modular approach to handling concerns that are common across multiple methods or components.
+This separation of concerns leads to cleaner, more maintainable code.

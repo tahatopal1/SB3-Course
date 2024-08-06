@@ -1,0 +1,64 @@
+### Custom Error Messages in Spring MVC with messages.properties
+
+To provide custom error messages in Spring MVC, especially for type mismatches or validation errors, you can use a `messages.properties` file.
+This file allows you to specify custom messages for various validation scenarios.
+Here’s a detailed breakdown of how to decipher and use the different components in the `messages.properties` file:
+
+#### Steps to Create Custom Error Messages
+
+1. **Create and Configure messages.properties**:
+   - Place this file in the `src/main/resources` directory.
+   - Define custom error messages using specific keys.
+
+   ```properties
+   # src/main/resources/messages.properties
+   typeMismatch.customer.freePasses=Invalid number
+   ```
+
+2. **Understanding the Components**:
+   - **typeMismatch**: This is the error type. It indicates that there was a type mismatch during data binding.
+   - **customer**: This is the name of the model object where the error occurred.
+   - **freePasses**: This is the specific field in the model object that caused the error.
+   - **Invalid number**: This is the custom error message that will be displayed when the error occurs.
+
+3. **Debugging and Logging**:
+   - To understand how these components are formed, you can log the `BindingResult` object in your controller. This object provides detailed information about the validation process and the error codes used by Spring.
+
+   ```java
+   @Controller
+   public class CustomerController {
+
+       @PostMapping("/processForm")
+       public String processForm(@Valid @ModelAttribute("customer") Customer customer, BindingResult bindingResult) {
+           System.out.println("Binding Result: " + bindingResult);
+           if (bindingResult.hasErrors()) {
+               return "customer-form";
+           } else {
+               return "customer-confirmation";
+           }
+       }
+   }
+   ```
+
+   **Console Output Example**:
+   ```
+   Binding Result: org.springframework.validation.BeanPropertyBindingResult: 1 errors
+   Field error in object 'customer' on field 'freePasses': rejected value [abc]; codes [typeMismatch.customer.freePasses,typeMismatch.freePasses,typeMismatch.java.lang.Integer,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [customer.freePasses,freePasses]; arguments []; default message [freePasses]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'java.lang.Integer' for property 'freePasses'; nested exception is java.lang.NumberFormatException: For input string: "abc"]
+   ```
+
+   - The output shows various levels of specificity for the error codes:
+     - `typeMismatch.customer.freePasses`
+     - `typeMismatch.freePasses`
+     - `typeMismatch.java.lang.Integer`
+     - `typeMismatch`
+
+4. **Using Error Codes in messages.properties**:
+   - You can override these default error messages by specifying them in your `messages.properties` file.
+   - If you want to provide a more general message that applies to any type mismatch for any integer field, you could use:
+
+     ```properties
+     typeMismatch.java.lang.Integer=Please enter a valid number
+     ```
+
+By following these steps, you can effectively customize the error messages displayed for various validation errors in your Spring MVC application.
+This approach allows you to provide user-friendly feedback, improving the overall user experience.
